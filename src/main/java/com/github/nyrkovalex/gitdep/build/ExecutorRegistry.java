@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.build;
+package com.github.nyrkovalex.gitdep.build;
 
 import java.util.HashSet;
 import java.util.List;

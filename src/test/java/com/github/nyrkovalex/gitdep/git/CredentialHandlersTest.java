@@ -1,6 +1,6 @@
-package com.github.nyrkovalex.gitdeps.git;
+package com.github.nyrkovalex.gitdep.git;
 
-import com.github.nyrkovalex.gitdeps.UnitTest;
+import com.github.nyrkovalex.gitdep.UnitTest;
 import com.github.nyrkovalex.seed.core.Seed;
 import org.eclipse.jgit.transport.CredentialItem;
 import org.junit.Before;

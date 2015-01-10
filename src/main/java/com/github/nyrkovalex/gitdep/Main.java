@@ -1,10 +1,10 @@
-package com.github.nyrkovalex.gitdeps;
+package com.github.nyrkovalex.gitdep;
 
-import com.github.nyrkovalex.gitdeps.build.ExecutorRegistry;
-import com.github.nyrkovalex.gitdeps.fs.TempDirectory;
-import com.github.nyrkovalex.gitdeps.git.Git;
-import com.github.nyrkovalex.gitdeps.params.Parameters;
-import com.github.nyrkovalex.gitdeps.params.UsageException;
+import com.github.nyrkovalex.gitdep.build.ExecutorRegistry;
+import com.github.nyrkovalex.gitdep.fs.TempDirectory;
+import com.github.nyrkovalex.gitdep.git.Git;
+import com.github.nyrkovalex.gitdep.params.Parameters;
+import com.github.nyrkovalex.gitdep.params.UsageException;
 import com.github.nyrkovalex.seed.core.Chain;
 import com.github.nyrkovalex.seed.core.Flow;
 import com.github.nyrkovalex.seed.core.Seed;

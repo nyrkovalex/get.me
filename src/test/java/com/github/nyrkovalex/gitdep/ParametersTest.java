@@ -1,7 +1,7 @@
-package com.github.nyrkovalex.gitdeps;
+package com.github.nyrkovalex.gitdep;
 
-import com.github.nyrkovalex.gitdeps.params.Parameters;
-import com.github.nyrkovalex.gitdeps.params.UsageException;
+import com.github.nyrkovalex.gitdep.params.Parameters;
+import com.github.nyrkovalex.gitdep.params.UsageException;
 import org.junit.Before;
 import org.junit.Test;
 

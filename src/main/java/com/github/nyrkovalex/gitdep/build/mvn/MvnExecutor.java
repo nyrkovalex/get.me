@@ -1,7 +1,7 @@
-package com.github.nyrkovalex.gitdeps.build.mvn;
+package com.github.nyrkovalex.gitdep.build.mvn;
 
-import com.github.nyrkovalex.gitdeps.build.BuildExecutionException;
-import com.github.nyrkovalex.gitdeps.build.BuildExecutor;
+import com.github.nyrkovalex.gitdep.build.BuildExecutionException;
+import com.github.nyrkovalex.gitdep.build.BuildExecutor;
 import com.github.nyrkovalex.seed.core.Seed;
 
 import java.util.logging.Logger;

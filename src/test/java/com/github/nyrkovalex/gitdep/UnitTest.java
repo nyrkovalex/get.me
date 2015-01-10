@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps;
+package com.github.nyrkovalex.gitdep;
 
 import com.github.nyrkovalex.seed.test.Seed;
 import org.junit.Before;

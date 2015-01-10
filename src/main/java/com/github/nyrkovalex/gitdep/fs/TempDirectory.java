@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.fs;
+package com.github.nyrkovalex.gitdep.fs;
 
 
 import com.github.nyrkovalex.seed.core.Seed;

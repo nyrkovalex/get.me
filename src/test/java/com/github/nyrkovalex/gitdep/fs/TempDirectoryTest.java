@@ -1,6 +1,6 @@
-package com.github.nyrkovalex.gitdeps.fs;
+package com.github.nyrkovalex.gitdep.fs;
 
-import com.github.nyrkovalex.gitdeps.UnitTest;
+import com.github.nyrkovalex.gitdep.UnitTest;
 import com.github.nyrkovalex.seed.core.Seed;
 import org.junit.After;
 import org.junit.Before;

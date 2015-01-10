@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.git;
+package com.github.nyrkovalex.gitdep.git;
 
 import com.github.nyrkovalex.seed.core.Seed;
 import org.eclipse.jgit.transport.CredentialItem;

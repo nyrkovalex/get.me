@@ -1,9 +1,9 @@
-package com.github.nyrkovalex.gitdeps.params;
+package com.github.nyrkovalex.gitdep.params;
 
 public class UsageException extends Exception {
     private static final String USAGE = "" +
             "Usage:\n" +
-            "gitdeps <url> [, url, ...] [ -debug ]\n" +
+            "gitdep <url> [, url, ...] [ -debug ]\n" +
             "\n" +
             "Parameters:\n" +
             "url - Url of a dependency repository. Should be in a format understandable by git\n" +

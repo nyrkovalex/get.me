@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.params;
+package com.github.nyrkovalex.gitdep.params;
 
 import java.util.Collections;
 import java.util.HashSet;

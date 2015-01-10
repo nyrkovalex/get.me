@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.build;
+package com.github.nyrkovalex.gitdep.build;
 
 public class BuildExecutionException extends Exception {
     public BuildExecutionException(String message, Throwable cause) {

@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.build.mvn;
+package com.github.nyrkovalex.gitdep.build.mvn;
 
 import com.github.nyrkovalex.seed.core.Seed;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
@@ -6,7 +6,7 @@ import org.apache.maven.shared.invoker.DefaultInvoker;
 import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
-import com.github.nyrkovalex.gitdeps.build.BuildExecutionException;
+import com.github.nyrkovalex.gitdep.build.BuildExecutionException;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -18,10 +18,6 @@ import java.util.logging.Logger;
 public class Mvn {
     public static final String POM_XML_NAME = "pom.xml";
     private static final Logger LOG = Logger.getLogger(Mvn.class.getName());
-
-    public static Runner run(List<String> targets) {
-        return new Runner(targets);
-    }
 
     public static Runner run(String... targets) {
         return new Runner(Arrays.asList(targets));

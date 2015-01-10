@@ -1,6 +1,6 @@
-package com.github.nyrkovalex.gitdeps.git;
+package com.github.nyrkovalex.gitdep.git;
 
-import com.github.nyrkovalex.gitdeps.UnitTest;
+import com.github.nyrkovalex.gitdep.UnitTest;
 import org.eclipse.jgit.transport.CredentialItem;
 import org.eclipse.jgit.transport.URIish;
 import org.junit.Before;
@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

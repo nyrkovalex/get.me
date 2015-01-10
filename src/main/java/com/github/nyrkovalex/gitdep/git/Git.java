@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.git;
+package com.github.nyrkovalex.gitdep.git;
 
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;

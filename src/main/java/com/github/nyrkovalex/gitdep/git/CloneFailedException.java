@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdeps.git;
+package com.github.nyrkovalex.gitdep.git;
 
 public class CloneFailedException extends Exception {
     public CloneFailedException(String url, String path, Throwable cause) {
