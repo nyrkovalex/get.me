@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdep.build.mvn;
+package com.github.nyrkovalex.gitdep.mvn;
 
 import com.github.nyrkovalex.gitdep.build.BuildExecutionException;
 import com.github.nyrkovalex.gitdep.build.BuildExecutor;

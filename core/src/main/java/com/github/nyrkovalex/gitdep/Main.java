@@ -1,6 +1,9 @@
 package com.github.nyrkovalex.gitdep;
 
 import com.github.nyrkovalex.gitdep.build.ExecutorRegistry;
+import com.github.nyrkovalex.gitdep.conf.ClassloaderProvider;
+import com.github.nyrkovalex.gitdep.conf.Configuration;
+import com.github.nyrkovalex.gitdep.conf.MalformedConfigurationException;
 import com.github.nyrkovalex.gitdep.fs.TempDirectory;
 import com.github.nyrkovalex.gitdep.git.Git;
 import com.github.nyrkovalex.gitdep.params.Parameters;
@@ -8,12 +11,12 @@ import com.github.nyrkovalex.gitdep.params.UsageException;
 import com.github.nyrkovalex.seed.core.Chain;
 import com.github.nyrkovalex.seed.core.Flow;
 import com.github.nyrkovalex.seed.core.Seed;
-
 import java.io.IOException;
 import java.util.logging.Formatter;
 import java.util.logging.Logger;
 
 public final class Main {
+
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
     public static void main(String... args) throws Flow.InterruptedException {
@@ -45,8 +48,8 @@ public final class Main {
         return params;
     }
 
-    private static Configuration configuration(Parameters parameters) {
-        return new Configuration(parameters);
+    private static Configuration configuration(Parameters parameters) throws MalformedConfigurationException {
+        return Configuration.load(parameters, new ClassloaderProvider());
     }
 
     private static Parameters logRunning(Parameters parameters) {
@@ -64,7 +67,7 @@ public final class Main {
             configuration.urls().forEach((url) -> chain(url, tmpDir.path()));
         } catch (IOException e) {
             LOG.warning(() -> "Failed to delete temp directory, see trace for details");
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         }
         return configuration;
     }
@@ -77,7 +80,7 @@ public final class Main {
                     .end();
         } catch (Chain.BrokenException e) {
             LOG.severe(() -> "Failed to process " + url);
-            e.printStackTrace();
+            e.printStackTrace(System.err);
         }
     }
 }

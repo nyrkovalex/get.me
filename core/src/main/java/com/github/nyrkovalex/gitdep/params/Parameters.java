@@ -1,11 +1,12 @@
 package com.github.nyrkovalex.gitdep.params;
 
+import com.github.nyrkovalex.gitdep.conf.ExecutorsFile;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class Parameters {
-
+public class Parameters {
     private final Set<String> urls;
     private final boolean debug;
 
@@ -23,6 +24,10 @@ public final class Parameters {
 
     public Set<String> urls() {
         return urls;
+    }
+
+    public ExecutorsFile executorsFile() {
+        return new ExecutorsFile();
     }
 
     public boolean debugEnabled() {

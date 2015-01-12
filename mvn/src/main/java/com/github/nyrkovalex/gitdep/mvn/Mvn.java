@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.gitdep.build.mvn;
+package com.github.nyrkovalex.gitdep.mvn;
 
 import com.github.nyrkovalex.seed.core.Seed;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Mvn {
+class Mvn {
     public static final String POM_XML_NAME = "pom.xml";
     private static final Logger LOG = Logger.getLogger(Mvn.class.getName());
 

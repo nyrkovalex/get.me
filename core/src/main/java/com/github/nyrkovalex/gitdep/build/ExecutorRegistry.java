@@ -17,7 +17,7 @@ public final class ExecutorRegistry {
     private final Set<BuildExecutor> executors;
 
     public void register(BuildExecutor executor) {
-        LOG.fine("Registering " + executor);
+        LOG.fine(() -> "Registering " + executor);
         executors.add(executor);
     }
 
@@ -33,7 +33,7 @@ public final class ExecutorRegistry {
         if (found.size() > 1) {
             throw new BuildExecutionException("More than one executor found for " + path);
         }
-        if (found.size() == 0) {
+        if (found.isEmpty()) {
             throw new BuildExecutionException("No executors found for path " + path);
         }
         return found.get(0);
