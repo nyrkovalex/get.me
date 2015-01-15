@@ -9,8 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static org.hamcrest.CoreMatchers.is;
-
 public class ExecutorsDocumentTest extends UnitTest {
 
     @Language("XML") public static final String CONFIG_XML = "" +

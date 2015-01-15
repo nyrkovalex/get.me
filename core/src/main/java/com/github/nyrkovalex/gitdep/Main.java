@@ -1,7 +1,6 @@
 package com.github.nyrkovalex.gitdep;
 
 import com.github.nyrkovalex.gitdep.build.ExecutorRegistry;
-import com.github.nyrkovalex.gitdep.conf.ClassloaderProvider;
 import com.github.nyrkovalex.gitdep.conf.Configuration;
 import com.github.nyrkovalex.gitdep.conf.MalformedConfigurationException;
 import com.github.nyrkovalex.gitdep.fs.TempDirectory;
@@ -11,6 +10,7 @@ import com.github.nyrkovalex.gitdep.params.UsageException;
 import com.github.nyrkovalex.seed.core.Chain;
 import com.github.nyrkovalex.seed.core.Flow;
 import com.github.nyrkovalex.seed.core.Seed;
+
 import java.io.IOException;
 import java.util.logging.Formatter;
 import java.util.logging.Logger;
@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public final class Main {
 
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
+    private static final String PLUGINS_DIR = "../plugins";
 
     public static void main(String... args) throws Flow.InterruptedException {
         Flow.start(() -> args)
@@ -49,7 +50,7 @@ public final class Main {
     }
 
     private static Configuration configuration(Parameters parameters) throws MalformedConfigurationException {
-        return Configuration.load(parameters, new ClassloaderProvider());
+        return Configuration.load(parameters, Seed.ClassLoaderProvider.forPath(PLUGINS_DIR));
     }
 
     private static Parameters logRunning(Parameters parameters) {

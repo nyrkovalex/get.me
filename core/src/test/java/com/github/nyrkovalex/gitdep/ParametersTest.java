@@ -7,8 +7,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.hamcrest.CoreMatchers.is;
-
 public class ParametersTest extends UnitTest {
 
     private String gitdepUrl;

@@ -4,13 +4,14 @@ import com.github.nyrkovalex.gitdep.UnitTest;
 import com.github.nyrkovalex.gitdep.build.BuildExecutionException;
 import com.github.nyrkovalex.gitdep.build.BuildExecutor;
 import com.github.nyrkovalex.gitdep.params.Parameters;
-import java.util.Arrays;
-import java.util.HashSet;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
+import com.github.nyrkovalex.seed.core.Seed;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,7 +19,7 @@ public class ConfigurationTest extends UnitTest {
     @Mock private Parameters params;
     @Mock private ExecutorsFile executorsFile;
     @Mock private ExecutorsDocument document;
-    @Mock private ClassloaderProvider classloaderProvider;
+    @Mock private Seed.ClassLoaderProvider classloaderProvider;
 
     @Before
     public void setUp() throws Exception {
