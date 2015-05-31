@@ -1,14 +1,21 @@
 package com.github.nyrkovalex.get.me.api;
 
-public final class Installers {
+public final class GetMe {
 
-  private Installers() {
+  private GetMe() {
     // Module
   }
 
   public interface Installer<P> {
 
     void install(String workingDir, P params) throws Err;
+
+    Class<P> paramsClass();
+  }
+
+  public interface Builder<P> {
+
+    void build(String path, P params) throws Err;
 
     Class<P> paramsClass();
   }

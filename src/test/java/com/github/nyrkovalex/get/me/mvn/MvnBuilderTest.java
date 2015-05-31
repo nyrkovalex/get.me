@@ -1,6 +1,6 @@
-package com.github.nyrkovalex.get.me.build;
+package com.github.nyrkovalex.get.me.mvn;
 
-import com.github.nyrkovalex.get.me.api.Builders;
+import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Tests;
 import static com.github.nyrkovalex.seed.Tests.Expect.expect;
 import static com.github.nyrkovalex.seed.Tests.Expect.given;
@@ -34,14 +34,14 @@ public class MvnBuilderTest extends Tests.Expect {
 
     @Test
     public void testShouldUseDefaultTargets() throws Exception {
-      builder.build("foo", new MvnBuilderParams());
+      builder.build("foo", new MvnParams());
       expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
     }
 
     @Test
     public void testShouldUseProvidedTargets() throws Exception {
       List<String> targets = Arrays.asList("bar", "baz");
-      builder.build("foo", new MvnBuilderParams(targets));
+      builder.build("foo", new MvnParams(targets));
       expect(mvn).toHaveCall().run(targets);
     }
   }
@@ -81,7 +81,7 @@ public class MvnBuilderTest extends Tests.Expect {
       expect(invoker).toHaveCall().execute(req);
     }
 
-    @Test(expected = Builders.Err.class)
+    @Test(expected = GetMe.Err.class)
     public void testShouldThrowOnMavenError() throws Exception {
       given(invoker.execute(req)).failsWith(MavenInvocationException.class);
       new Mvn.Runner(api, goals).in("/tmp");

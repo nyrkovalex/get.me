@@ -1,6 +1,6 @@
 {
   "builder": {
-    "class": "com.github.nyrkovalex.get.me.build.MvnBuilder",
+    "class": "com.github.nyrkovalex.get.me.mvn.MvnBuilder",
     "params": {
       "goals": [
         "clean",

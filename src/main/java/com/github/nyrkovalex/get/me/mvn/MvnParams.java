@@ -1,17 +1,17 @@
-package com.github.nyrkovalex.get.me.build;
+package com.github.nyrkovalex.get.me.mvn;
 
 import java.util.Collections;
 import java.util.List;
 
-public class MvnBuilderParams {
+public class MvnParams {
 
   public final List<String> goals;
 
-  MvnBuilderParams() {
+  MvnParams() {
     this.goals = Collections.emptyList();
   }
 
-  MvnBuilderParams(List<String> goals) {
+  MvnParams(List<String> goals) {
     this.goals = goals;
   }
 

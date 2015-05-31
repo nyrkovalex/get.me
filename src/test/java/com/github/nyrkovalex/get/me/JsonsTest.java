@@ -1,7 +1,7 @@
 package com.github.nyrkovalex.get.me;
 
-import com.github.nyrkovalex.get.me.build.MvnBuilderParams;
 import com.github.nyrkovalex.get.me.install.ExecJarParams;
+import com.github.nyrkovalex.get.me.mvn.MvnParams;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Tests;
 import com.google.gson.Gson;
@@ -16,7 +16,7 @@ public class JsonsTest extends Tests.Expect {
   private static final String JSON = ""
       + "{\n"
       + "  \"builder\": {\n"
-      + "    \"class\": \"com.github.nyrkovalex.get.me.build.MvnBuilder\",\n"
+      + "    \"class\": \"com.github.nyrkovalex.get.me.mvn.MvnBuilder\",\n"
       + "    \"params\": {\n"
       + "      \"goals\": [ \"clean\", \"package\" ]\n"
       + "    }\n"
@@ -42,7 +42,7 @@ public class JsonsTest extends Tests.Expect {
 
   @Test
   public void testShouldParseBuilder() throws Exception {
-    expect(parsed.builder().className()).toBe("com.github.nyrkovalex.get.me.build.MvnBuilder");
+    expect(parsed.builder().className()).toBe("com.github.nyrkovalex.get.me.mvn.MvnBuilder");
   }
 
   @Test
@@ -52,7 +52,7 @@ public class JsonsTest extends Tests.Expect {
 
   @Test
   public void testShouldParseBulderParams() throws Exception {
-    MvnBuilderParams params = parsed.builder().params(MvnBuilderParams.class);
+    MvnParams params = parsed.builder().params(MvnParams.class);
     expect(params.goals.get(0)).toBe("clean");
     expect(params.goals.get(1)).toBe("package");
   }

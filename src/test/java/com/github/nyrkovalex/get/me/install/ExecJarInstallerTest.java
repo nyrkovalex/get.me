@@ -1,7 +1,7 @@
 package com.github.nyrkovalex.get.me.install;
 
 import com.github.nyrkovalex.get.me.Envs;
-import com.github.nyrkovalex.get.me.api.Installers;
+import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Tests;
 import static com.github.nyrkovalex.seed.Tests.Expect.expect;
@@ -34,12 +34,12 @@ public class ExecJarInstallerTest extends Tests.Expect {
     params = new ExecJarParams("myJar");
   }
 
-  @Test(expected = Installers.Err.class)
+  @Test(expected = GetMe.Err.class)
   public void testShouldThrowWhenNoJarParamFound() throws Exception {
     installer.install(workingDir, new ExecJarParams());
   }
 
-  @Test(expected = Installers.Err.class)
+  @Test(expected = GetMe.Err.class)
   public void testShouldThrowOnEmptyJarParam() throws Exception {
     installer.install(workingDir, new ExecJarParams(""));
   }
@@ -50,13 +50,13 @@ public class ExecJarInstallerTest extends Tests.Expect {
     expect(sourceJar).toHaveCall().copyTo(targetFile);
   }
 
-  @Test(expected = Installers.Err.class)
+  @Test(expected = GetMe.Err.class)
   public void testShouldThrowIfNoJarExists() throws Exception {
     given(sourceJar.exists()).returns(Boolean.FALSE);
     installer.install(workingDir, params);
   }
 
-  @Test(expected = Installers.Err.class)
+  @Test(expected = GetMe.Err.class)
   public void testShouldThrowIfJarPathIsNotSet() throws Exception {
     given(env.jarPath()).returns(null);
     installer.install(workingDir, params);
