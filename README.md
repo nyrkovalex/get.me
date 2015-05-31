@@ -1,4 +1,4 @@
-# gitdep
+# get.me
 Git based java software installer.
 
 Goal of this project is to let java developers install opensource tools and
