@@ -44,6 +44,18 @@ public class MvnBuilderTest extends Tests.Expect {
       builder.build("foo", new MvnParams(targets));
       expect(mvn).toHaveCall().run(targets);
     }
+
+    @Test
+    public void testShouldUseDefaultTargetsOnNullParams() throws Exception {
+      builder.build("foo", null);
+      expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
+    }
+
+    @Test
+    public void testShouldUseDefaultTargetsOnNullGoals() throws Exception {
+      builder.build("foo", new MvnParams(null));
+      expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
+    }
   }
 
   public static class RunnerTest extends Tests.Expect {

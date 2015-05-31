@@ -35,4 +35,16 @@ public class MvnInstallerTest extends Tests.Expect {
     expect(mvn).toHaveCall().run(goals);
   }
 
+  @Test
+  public void testShouldRunDefaultGoalsWithNullParams() throws Exception {
+    installer.install("/tmp", null);
+    expect(mvn).toHaveCall().run(MvnInstaller.DEFAULT_GOALS);
+  }
+
+  @Test
+  public void testShouldRunDefaultGoalsWithEmptyParams() throws Exception {
+    installer.install("/tmp", new MvnParams());
+    expect(mvn).toHaveCall().run(MvnInstaller.DEFAULT_GOALS);
+  }
+
 }

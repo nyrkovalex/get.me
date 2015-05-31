@@ -3,6 +3,7 @@ package com.github.nyrkovalex.get.me.mvn;
 import com.github.nyrkovalex.get.me.api.GetMe;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class MvnBuilder implements GetMe.Builder<MvnParams> {
 
@@ -20,7 +21,11 @@ public class MvnBuilder implements GetMe.Builder<MvnParams> {
 
   @Override
   public void build(String path, MvnParams params) throws GetMe.Err {
-    mvn.run(params.goals.isEmpty() ? DEFAULT_GOALS : params.goals).in(path);
+    boolean noGoals = Objects.isNull(params)
+        || Objects.isNull(params.goals)
+        || params.goals.isEmpty();
+    List<String> goals = noGoals ? DEFAULT_GOALS : params.goals;
+    mvn.run(goals).in(path);
   }
 
   @Override
@@ -34,5 +39,3 @@ public class MvnBuilder implements GetMe.Builder<MvnParams> {
   }
 
 }
-
-

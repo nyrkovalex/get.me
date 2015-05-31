@@ -20,9 +20,10 @@ public class MvnInstaller implements GetMe.Installer<MvnParams> {
 
   @Override
   public void install(String workingDir, MvnParams params) throws GetMe.Err {
-    List<String> goals = Objects.isNull(params.goals) || params.goals.isEmpty()
-        ? DEFAULT_GOALS
-        : params.goals;
+    boolean noGoals = Objects.isNull(params)
+        || Objects.isNull(params.goals)
+        || params.goals.isEmpty();
+    List<String> goals = noGoals ? DEFAULT_GOALS : params.goals;
     mvn.run(goals).in(workingDir);
   }
 
