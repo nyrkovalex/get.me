@@ -1,5 +1,5 @@
 # gitdep
-Git based java software installer.1
+Git based java software installer.
 
 Goal of this project is to let java developers install opensource tools and
 libraries straight from github or other git repository by one simple console command like
