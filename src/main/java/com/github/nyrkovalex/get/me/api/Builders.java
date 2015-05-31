@@ -1,6 +1,7 @@
 package com.github.nyrkovalex.get.me.api;
 
 public final class Builders {
+
   private Builders() {
     // Module
   }
@@ -11,7 +12,6 @@ public final class Builders {
 
     Class<P> paramsClass();
   }
-
 
   public static class Err extends Exception {
 

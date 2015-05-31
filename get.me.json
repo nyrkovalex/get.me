@@ -2,7 +2,10 @@
   "builder": {
     "class": "com.github.nyrkovalex.get.me.build.MvnBuilder",
     "params": {
-      "goals": [ "clean", "package" ]
+      "goals": [
+        "clean",
+        "package"
+      ]
     }
   },
   "installer": {

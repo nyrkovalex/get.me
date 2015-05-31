@@ -17,15 +17,18 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.URIish;
 
 final class Git {
+
   private Git() {
     // Module
   }
 
   public interface Cloner {
+
     CloneCommand clone(String url);
   }
 
   public interface CloneCommand {
+
     void to(String path) throws Err;
   }
 
@@ -33,8 +36,8 @@ final class Git {
     return GitCloneCommand::new;
   }
 
-
   static class Err extends Exception {
+
     Err(String url, String path, Throwable cause) {
       super(String.format("Failed to clone %s to %s, see cause for details", url, path), cause);
     }
@@ -156,6 +159,7 @@ class CredentialHandlers {
 }
 
 class GitCredentialsProvider extends CredentialsProvider {
+
   private final Map<Class<?>, Function<CredentialItem, Boolean>> handlers;
 
   GitCredentialsProvider(Map<Class<?>, Function<CredentialItem, Boolean>> handlers) {
@@ -193,4 +197,3 @@ class GitCredentialsProvider extends CredentialsProvider {
   }
 
 }
-

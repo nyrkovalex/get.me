@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 final class Jsons {
+
   private Jsons() {
     // Module
   }

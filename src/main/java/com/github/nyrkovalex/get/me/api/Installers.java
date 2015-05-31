@@ -1,6 +1,7 @@
 package com.github.nyrkovalex.get.me.api;
 
 public final class Installers {
+
   private Installers() {
     // Module
   }
@@ -8,6 +9,7 @@ public final class Installers {
   public interface Installer<P> {
 
     void install(String workingDir, P params) throws Err;
+
     Class<P> paramsClass();
   }
 
@@ -25,5 +27,3 @@ public final class Installers {
     }
   }
 }
-
-

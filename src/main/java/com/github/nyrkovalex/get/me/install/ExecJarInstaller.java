@@ -1,4 +1,3 @@
-
 package com.github.nyrkovalex.get.me.install;
 
 import com.github.nyrkovalex.get.me.Envs;
@@ -7,6 +6,7 @@ import com.github.nyrkovalex.seed.Io;
 import java.util.Objects;
 
 public class ExecJarInstaller implements Installers.Installer<ExecJarParams> {
+
   private final Io.Fs fs;
   private final Envs.Env env;
 

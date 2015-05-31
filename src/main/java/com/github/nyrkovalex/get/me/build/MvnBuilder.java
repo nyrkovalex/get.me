@@ -1,4 +1,3 @@
-
 package com.github.nyrkovalex.get.me.build;
 
 import com.github.nyrkovalex.get.me.api.Builders;
@@ -16,6 +15,7 @@ import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 
 public class MvnBuilder implements Builders.Builder<MvnBuilderParams> {
+
   static final String POM_XML_NAME = "pom.xml";
   static final List<String> DEFAULT_GOALS = Arrays.asList("clean", "package");
   private final Mvn mvn;
@@ -45,8 +45,8 @@ public class MvnBuilder implements Builders.Builder<MvnBuilderParams> {
 
 }
 
-
 class MvnApi {
+
   Invoker invoker() {
     return new DefaultInvoker();
   }
