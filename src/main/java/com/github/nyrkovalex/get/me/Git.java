@@ -16,7 +16,7 @@ import org.eclipse.jgit.transport.CredentialItem;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.URIish;
 
-public final class Git {
+final class Git {
   private Git() {
     // Module
   }

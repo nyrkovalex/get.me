@@ -1,6 +1,7 @@
-package com.github.nyrkovalex.get.me;
 
-import com.github.nyrkovalex.seed.Plugins;
+package com.github.nyrkovalex.get.me.build;
+
+import com.github.nyrkovalex.get.me.api.Builders;
 import com.github.nyrkovalex.seed.Seed;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,56 +15,9 @@ import org.apache.maven.shared.invoker.InvocationRequest;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 
-public final class Builders {
-
-  private static final Envs.Env ENV = Envs.env();
-  private static final Plugins.Loader LOADER = Plugins.loader();
-
-  private Builders() {
-    // Module
-  }
-
-  public interface Builder<P> {
-
-    void build(String path, P params) throws Err;
-
-    Class<P> paramsClass();
-  }
-
-  public static Registries.Registry<Builders.Builder> registry() {
-    Plugins.Repo repo = LOADER.repo(ENV.buildersHome());
-    return Registries.registry(repo, Builders.Builder.class, new MvnBuilder());
-  }
-
-  public static class Err extends Exception {
-
-    Err(String message) {
-      super(message);
-    }
-
-    public Err(String message, Exception cause) {
-      super(message, cause);
-    }
-  }
-}
-
-class MvnBuilderParams {
-  final List<String> goals;
-
-  MvnBuilderParams() {
-    this.goals = Collections.emptyList();
-  }
-
-  MvnBuilderParams(List<String> goals) {
-    this.goals = goals;
-  }
-}
-
-class MvnBuilder implements Builders.Builder<MvnBuilderParams> {
-
+public class MvnBuilder implements Builders.Builder<MvnBuilderParams> {
   static final String POM_XML_NAME = "pom.xml";
   static final List<String> DEFAULT_GOALS = Arrays.asList("clean", "package");
-
   private final Mvn mvn;
 
   public MvnBuilder() {
@@ -88,7 +42,9 @@ class MvnBuilder implements Builders.Builder<MvnBuilderParams> {
   public Class<MvnBuilderParams> paramsClass() {
     return MvnBuilderParams.class;
   }
+
 }
+
 
 class MvnApi {
   Invoker invoker() {
@@ -154,5 +110,4 @@ class Mvn {
       return request;
     }
   }
-
 }

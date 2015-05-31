@@ -1,5 +1,7 @@
 package com.github.nyrkovalex.get.me;
 
+import com.github.nyrkovalex.get.me.api.Builders;
+import com.github.nyrkovalex.get.me.build.MvnBuilder;
 import com.github.nyrkovalex.seed.Plugins;
 import com.github.nyrkovalex.seed.Tests;
 import static com.github.nyrkovalex.seed.Tests.Expect.expect;

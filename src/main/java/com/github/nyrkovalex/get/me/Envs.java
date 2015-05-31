@@ -2,7 +2,7 @@ package com.github.nyrkovalex.get.me;
 
 import com.github.nyrkovalex.seed.Sys;
 
-public class Envs {
+public final class Envs {
 
   private final static Sys.Env SEED_ENV = Sys.env();
 

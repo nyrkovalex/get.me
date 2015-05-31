@@ -1,10 +1,12 @@
 package com.github.nyrkovalex.get.me;
 
+import com.github.nyrkovalex.get.me.api.Builders;
+import com.github.nyrkovalex.get.me.api.Installers;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Seed;
 import java.util.logging.Logger;
 
-public final class App {
+final class App {
 
   private static final Logger LOG = Seed.logger(App.class);
 
@@ -27,8 +29,8 @@ public final class App {
 
   private final Envs.Env env = Envs.env();
   private final Params.Parsed params;
-  private final Registries.Registry<Builders.Builder> buildersRegistry = Builders.registry();
-  private final Registries.Registry<Installers.Installer> installerRegistry = Installers.registry();
+  private final Registries.Registry<Builders.Builder> buildersRegistry = Registries.builderRegistry();
+  private final Registries.Registry<Installers.Installer> installerRegistry = Registries.installerRegistry();
   private final Git.Cloner cloner = Git.cloner();
   private final Jsons.Parser parser = Jsons.parser();
   private final Io.Fs fs = Io.fs();

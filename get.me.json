@@ -1,12 +1,12 @@
 {
   "builder": {
-    "class": "com.github.nyrkovalex.get.me.Builders.MvnBuilder",
+    "class": "com.github.nyrkovalex.get.me.build.MvnBuilder",
     "params": {
       "goals": [ "clean", "package" ]
     }
   },
   "installer": {
-    "class": "com.github.nyrkovalex.get.me.Installers.ExecJarInstaller",
+    "class": "com.github.nyrkovalex.get.me.install.ExecJarInstaller",
     "params": {
       "jar": "target/get.me.jar"
     }

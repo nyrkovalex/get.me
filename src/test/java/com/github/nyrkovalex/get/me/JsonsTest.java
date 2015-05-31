@@ -1,5 +1,7 @@
 package com.github.nyrkovalex.get.me;
 
+import com.github.nyrkovalex.get.me.build.MvnBuilderParams;
+import com.github.nyrkovalex.get.me.install.ExecJarParams;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Tests;
 import com.google.gson.Gson;
@@ -14,13 +16,13 @@ public class JsonsTest extends Tests.Expect {
   private static final String JSON = ""
       + "{\n"
       + "  \"builder\": {\n"
-      + "    \"class\": \"com.github.nyrkovalex.get.me.Builders.MvnBuilder\",\n"
+      + "    \"class\": \"com.github.nyrkovalex.get.me.build.MvnBuilder\",\n"
       + "    \"params\": {\n"
       + "      \"goals\": [ \"clean\", \"package\" ]\n"
       + "    }\n"
       + "  },\n"
       + "  \"installer\": {\n"
-      + "    \"class\": \"com.github.nyrkovalex.get.me.Installers.ExecJarInstaller\",\n"
+      + "    \"class\": \"com.github.nyrkovalex.get.me.install.ExecJarInstaller\",\n"
       + "    \"params\": {\n"
       + "      \"jar\": \"target/get.me.jar\"\n"
       + "    }\n"
@@ -40,12 +42,12 @@ public class JsonsTest extends Tests.Expect {
 
   @Test
   public void testShouldParseBuilder() throws Exception {
-    expect(parsed.builder().className()).toBe("com.github.nyrkovalex.get.me.Builders.MvnBuilder");
+    expect(parsed.builder().className()).toBe("com.github.nyrkovalex.get.me.build.MvnBuilder");
   }
 
   @Test
   public void testShouldParseInstaller() throws Exception {
-    expect(parsed.installer().className()).toBe("com.github.nyrkovalex.get.me.Installers.ExecJarInstaller");
+    expect(parsed.installer().className()).toBe("com.github.nyrkovalex.get.me.install.ExecJarInstaller");
   }
 
   @Test

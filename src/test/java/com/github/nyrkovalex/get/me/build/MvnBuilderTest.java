@@ -1,6 +1,9 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.build;
 
+import com.github.nyrkovalex.get.me.api.Builders;
 import com.github.nyrkovalex.seed.Tests;
+import static com.github.nyrkovalex.seed.Tests.Expect.expect;
+import static com.github.nyrkovalex.seed.Tests.Expect.given;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -16,9 +19,9 @@ import static org.mockito.Matchers.any;
 import org.mockito.Mock;
 
 @RunWith(Enclosed.class)
-public class BuildersTest extends Tests.Expect {
+public class MvnBuilderTest extends Tests.Expect {
 
-  public static class MvnBuilderTest extends Tests.Expect {
+  public static class BuilderTest extends Tests.Expect {
 
     @Mock Mvn mvn;
     @Mock Mvn.Runner runner;
@@ -43,7 +46,7 @@ public class BuildersTest extends Tests.Expect {
     }
   }
 
-  public static class MvnRunnerTest extends Tests.Expect {
+  public static class RunnerTest extends Tests.Expect {
 
     @Mock MvnApi api;
     @Mock Invoker invoker;
@@ -84,4 +87,5 @@ public class BuildersTest extends Tests.Expect {
       new Mvn.Runner(api, goals).in("/tmp");
     }
   }
+
 }
