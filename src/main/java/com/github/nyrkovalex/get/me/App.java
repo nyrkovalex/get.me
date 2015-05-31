@@ -47,12 +47,15 @@ final class App {
 
   private void buildTarget(String url) throws Exception {
     Io.Dir tempDir = fs.tempDir();
-    cloner.clone(url).to(tempDir.path());
-    Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
-    Jsons.Descriptor parsed = parser.parse(descriptorFile);
-    build(parsed, tempDir.path());
-    install(parsed, tempDir.path());
-    tempDir.delete();
+    try {
+      cloner.clone(url).to(tempDir.path());
+      Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
+      Jsons.Descriptor parsed = parser.parse(descriptorFile);
+      build(parsed, tempDir.path());
+      install(parsed, tempDir.path());
+    } finally {
+      tempDir.delete();
+    }
   }
 
   private void install(Jsons.Descriptor parsed, String workingDir) throws Exception {
