@@ -47,7 +47,7 @@ public class ExecJarInstaller implements Installers.Installer<ExecJarParams> {
     }
     Io.File sourceFile = fs.file(workingDir, targetPath);
     if (!sourceFile.exists()) {
-      throw new Installers.Err(targetPath + " does not exist");
+      throw new Installers.Err(sourceFile.path() + " does not exist");
     }
     return sourceFile;
   }
