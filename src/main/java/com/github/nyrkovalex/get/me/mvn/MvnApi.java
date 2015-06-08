@@ -1,4 +1,3 @@
-
 package com.github.nyrkovalex.get.me.mvn;
 
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
@@ -8,12 +7,12 @@ import org.apache.maven.shared.invoker.Invoker;
 
 class MvnApi {
 
-  Invoker invoker() {
-    return new DefaultInvoker();
-  }
+	Invoker invoker() {
+		return new DefaultInvoker();
+	}
 
-  InvocationRequest invocationRequest() {
-    return new DefaultInvocationRequest();
-  }
+	InvocationRequest invocationRequest() {
+		return new DefaultInvocationRequest();
+	}
 
 }

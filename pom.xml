@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.nyrkovalex</groupId>
   <artifactId>get.me</artifactId>
-  <version>0.1-alpha</version>
+  <version>0.1-alpha2</version>
   <packaging>jar</packaging>
 
   <properties>
