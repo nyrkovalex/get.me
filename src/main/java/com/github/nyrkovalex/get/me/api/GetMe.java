@@ -1,23 +1,16 @@
 package com.github.nyrkovalex.get.me.api;
 
+import java.util.Optional;
+
 public final class GetMe {
 
 	private GetMe() {
 		// Module
 	}
 
-	public interface Installer<P> {
-
-		void install(String workingDir, P params) throws Err;
-
-		Class<P> paramsClass();
-	}
-
-	public interface Builder<P> {
-
-		void build(String path, P params) throws Err;
-
-		Class<P> paramsClass();
+	public interface Plugin<P> {
+		void exec(String workingDir, Optional<P> params) throws Err;
+		Optional<Class<P>> paramsClass();
 	}
 
 	public static class Err extends Exception {

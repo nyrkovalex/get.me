@@ -1,7 +1,6 @@
 package com.github.nyrkovalex.get.me;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
-import com.github.nyrkovalex.get.me.install.ExecJarInstaller;
 import com.github.nyrkovalex.get.me.mvn.MvnBuilder;
 import com.github.nyrkovalex.seed.Plugins;
 
@@ -19,14 +18,9 @@ final class Registries {
 	private static final Envs.Env ENV = Envs.env();
 	private static final Plugins.Loader LOADER = Plugins.loader();
 
-	public static Registries.Registry<GetMe.Installer> installerRegistry() {
-		Plugins.Repo repo = LOADER.repo(ENV.installersHome());
-		return Registries.registry(repo, GetMe.Installer.class, new ExecJarInstaller());
-	}
-
-	public static Registries.Registry<GetMe.Builder> builderRegistry() {
-		Plugins.Repo repo = LOADER.repo(ENV.buildersHome());
-		return Registries.registry(repo, GetMe.Builder.class, new MvnBuilder());
+	public static Registries.Registry<GetMe.Plugin> pluginRegistry() {
+		Plugins.Repo repo = LOADER.repo(ENV.pluginsHome());
+		return Registries.registry(repo, GetMe.Plugin.class, new MvnBuilder());
 	}
 
 	static class Err extends Exception {

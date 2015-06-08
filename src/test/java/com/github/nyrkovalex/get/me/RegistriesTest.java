@@ -11,29 +11,29 @@ import org.mockito.Mock;
 public class RegistriesTest extends Tests.Expect {
 
 	@Mock Plugins.Repo repo;
-	@Mock GetMe.Builder externalBuilder;
-	Registries.Registry<GetMe.Builder> registry;
+	@Mock GetMe.Plugin externalPlugin;
+	Registries.Registry<GetMe.Plugin> registry;
 
 	@Before
 	public void setUp() throws Exception {
-		registry = Registries.registry(repo, GetMe.Builder.class, new MvnBuilder());
+		registry = Registries.registry(repo, GetMe.Plugin.class, new MvnBuilder());
 	}
 
 	@Test
-	public void testShouldReturnDefaultBuilder() throws Exception {
-		GetMe.Builder found = registry.forName(MvnBuilder.class.getCanonicalName());
+	public void testShouldReturnDefaultPlugin() throws Exception {
+		GetMe.Plugin found = registry.forName(MvnBuilder.class.getCanonicalName());
 		expect(found.getClass().equals(MvnBuilder.class)).toBe(true);
 	}
 
 	@Test
-	public void testShouldLoadBuilderFromRepo() throws Exception {
-		given(repo.instanceOf("ExternalBuilder", GetMe.Builder.class)).returns(externalBuilder);
-		expect(registry.forName("ExternalBuilder")).toBe(externalBuilder);
+	public void testShouldLoadPluginFromRepo() throws Exception {
+		given(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).returns(externalPlugin);
+		expect(registry.forName("ExternalPlugin")).toBe(externalPlugin);
 	}
 
 	@Test(expected = Registries.Err.class)
 	public void testShouldThrowWhenNoExecutorCanBeLoaded() throws Exception {
-		given(repo.instanceOf("ExternalBuilder", GetMe.Builder.class)).failsWith(Plugins.Err.class);
-		registry.forName("ExternalBuilder");
+		given(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).failsWith(Plugins.Err.class);
+		registry.forName("ExternalPlugin");
 	}
 }

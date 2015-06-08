@@ -2,6 +2,7 @@ package com.github.nyrkovalex.get.me.mvn;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class MvnParams {
 
@@ -15,4 +16,7 @@ public class MvnParams {
 		this.goals = goals;
 	}
 
+	public boolean hasGoals() {
+		return !(Objects.isNull(goals) || goals.isEmpty());
+	}
 }

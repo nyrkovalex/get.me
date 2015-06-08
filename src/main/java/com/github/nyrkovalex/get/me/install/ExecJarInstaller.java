@@ -5,8 +5,9 @@ import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Io;
 
 import java.util.Objects;
+import java.util.Optional;
 
-public class ExecJarInstaller implements GetMe.Installer<ExecJarParams> {
+public class ExecJarInstaller implements GetMe.Plugin<JarParams> {
 
 	private final Io.Fs fs;
 	private final Envs.Env env;
@@ -22,8 +23,10 @@ public class ExecJarInstaller implements GetMe.Installer<ExecJarParams> {
 	}
 
 	@Override
-	public void install(String workingDir, ExecJarParams params) throws GetMe.Err {
-		String targetPath = params.jar;
+	public void exec(String workingDir, Optional<JarParams> params) throws GetMe.Err {
+		JarParams jarParams = params.orElseThrow(
+				() -> new GetMe.Err("`jar` parameter must be provided"));
+		String targetPath = jarParams.jar;
 		try {
 			Io.File sourceFile = sourceJar(workingDir, targetPath);
 			Io.File targetFile = targetFile(sourceFile.name());
@@ -38,8 +41,7 @@ public class ExecJarInstaller implements GetMe.Installer<ExecJarParams> {
 		if (Objects.isNull(jarPath) || jarPath.isEmpty()) {
 			throw new GetMe.Err("JARPATH environment variable is not set");
 		}
-		Io.File targetFile = fs.file(jarPath, sourceFile);
-		return targetFile;
+		return fs.file(jarPath, sourceFile);
 	}
 
 	private Io.File sourceJar(String workingDir, String targetPath) throws GetMe.Err, Io.Err {
@@ -54,8 +56,8 @@ public class ExecJarInstaller implements GetMe.Installer<ExecJarParams> {
 	}
 
 	@Override
-	public Class<ExecJarParams> paramsClass() {
-		return ExecJarParams.class;
+	public Optional<Class<JarParams>> paramsClass() {
+		return Optional.of(JarParams.class);
 	}
 
 }

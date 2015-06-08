@@ -30,7 +30,7 @@ public class EnvsTest {
 		@Test
 		public void testShouldReturnPluginsHome() throws Exception {
 			given(seedEnv.userHome()).returns("user");
-			expect(env.buildersHome()).toBe("user" + EnvsEnv.GETME_HOME + EnvsEnv.BUILDERS_HOME);
+			expect(env.pluginsHome()).toBe("user" + EnvsEnv.GETME_HOME + EnvsEnv.PLUGINS_HOME);
 		}
 
 		@Test
@@ -48,12 +48,6 @@ public class EnvsTest {
 		public void testShouldReturnJarPathVariable() throws Exception {
 			given(seedEnv.read("JARPATH")).returns("/my/jarpath");
 			expect(env.jarPath()).toBe("/my/jarpath");
-		}
-
-		@Test
-		public void testShouldReturnInstallersHome() throws Exception {
-			given(seedEnv.userHome()).returns("user");
-			expect(env.installersHome()).toBe("user" + EnvsEnv.GETME_HOME + EnvsEnv.INSTALLERS_DIR);
 		}
 	}
 

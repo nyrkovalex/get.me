@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Optional;
 
 final class Jsons {
 
@@ -21,7 +22,7 @@ final class Jsons {
 
 		String className();
 
-		<T> T params(Class<T> clazz);
+		<T> Optional<T> params(Optional<Class<T>> clazz);
 	}
 
 	public interface Descriptor {
@@ -52,6 +53,7 @@ class JsonsDescription implements Jsons.Description {
 
 	private final String className;
 	private final JsonObject params;
+	private final static Gson GSON = new Gson();
 
 	public JsonsDescription(String className, JsonObject params) {
 		this.className = className;
@@ -64,9 +66,8 @@ class JsonsDescription implements Jsons.Description {
 	}
 
 	@Override
-	public <T> T params(Class<T> clazz) {
-		Gson gson = new Gson();
-		return gson.fromJson(params, clazz);
+	public <T> Optional<T> params(Optional<Class<T>> clazz) {
+		return clazz.map(c -> GSON.fromJson(params, c));
 	}
 }
 
@@ -106,8 +107,8 @@ class DescriptorParser implements Jsons.Parser {
 			BufferedReader reader = file.reader();
 			JsonObject rootJsonObject = gson.fromJson(reader, JsonObject.class);
 			Jsons.Description builder = readDescription(rootJsonObject.getAsJsonObject("builder"));
-			Jsons.Description instaler = readDescription(rootJsonObject.getAsJsonObject("installer"));
-			return new JsonsDescriptor(instaler, builder);
+			Jsons.Description installer = readDescription(rootJsonObject.getAsJsonObject("installer"));
+			return new JsonsDescriptor(installer, builder);
 		} catch (IOException ex) {
 			throw new Jsons.Err("Could not parse " + file.path(), ex);
 		}

@@ -4,6 +4,7 @@ import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Seed;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 final class App {
@@ -29,8 +30,7 @@ final class App {
 
 	private final Envs.Env env = Envs.env();
 	private final Params.Parsed params;
-	private final Registries.Registry<GetMe.Builder> buildersRegistry = Registries.builderRegistry();
-	private final Registries.Registry<GetMe.Installer> installerRegistry = Registries.installerRegistry();
+	private final Registries.Registry<GetMe.Plugin> pluginsRegistry = Registries.pluginRegistry();
 	private final Git.Cloner cloner = Git.cloner();
 	private final Jsons.Parser parser = Jsons.parser();
 	private final Io.Fs fs = Io.fs();
@@ -60,18 +60,18 @@ final class App {
 
 	private void install(Jsons.Descriptor parsed, String workingDir) throws Exception {
 		LOG.info("Installing...");
-		Jsons.Description installerDescription = parsed.installer();
-		GetMe.Installer installer = installerRegistry.forName(installerDescription.className());
-		Object installerParams = installerDescription.params(installer.paramsClass());
-		installer.install(workingDir, installerParams);
+		runPlugin(workingDir, parsed.installer());
 	}
 
 	private void build(Jsons.Descriptor parsed, String workingDir) throws GetMe.Err, Registries.Err {
 		LOG.info("Building...");
-		Jsons.Description builderDescription = parsed.builder();
-		GetMe.Builder builder = buildersRegistry.forName(builderDescription.className());
-		Object builderParams = builderDescription.params(builder.paramsClass());
-		builder.build(workingDir, builderParams);
+		runPlugin(workingDir, parsed.builder());
+	}
+
+	private void runPlugin(String workingDir, Jsons.Description builderDescription) throws Registries.Err, GetMe.Err {
+		GetMe.Plugin builder = pluginsRegistry.forName(builderDescription.className());
+		Optional<Object> builderParams = builderDescription.params(builder.paramsClass());
+		builder.exec(workingDir, builderParams);
 	}
 
 }

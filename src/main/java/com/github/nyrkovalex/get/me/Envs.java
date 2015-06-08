@@ -10,15 +10,13 @@ public final class Envs {
 
 		String getMeHome();
 
-		String buildersHome();
+		String pluginsHome();
 
 		String cwd();
 
 		String descriptorFileName();
 
 		String jarPath();
-
-		public String installersHome();
 	}
 
 	public static Env env() {
@@ -28,10 +26,9 @@ public final class Envs {
 
 class EnvsEnv implements Envs.Env {
 
-	final static String BUILDERS_HOME = "/builders";
+	final static String PLUGINS_HOME = "/plugins";
 	final static String GETME_HOME = "/.get.me";
 	final static String DESCRIPTOR_FILENAME = "get.me.json";
-	final static String INSTALLERS_DIR = "/installers";
 	private final Sys.Env env;
 
 	public EnvsEnv(Sys.Env env) {
@@ -39,8 +36,8 @@ class EnvsEnv implements Envs.Env {
 	}
 
 	@Override
-	public String buildersHome() {
-		return getMeHome() + BUILDERS_HOME;
+	public String pluginsHome() {
+		return getMeHome() + PLUGINS_HOME;
 	}
 
 	@Override
@@ -61,11 +58,6 @@ class EnvsEnv implements Envs.Env {
 	@Override
 	public String jarPath() {
 		return env.read("JARPATH");
-	}
-
-	@Override
-	public String installersHome() {
-		return getMeHome() + INSTALLERS_DIR;
 	}
 
 }

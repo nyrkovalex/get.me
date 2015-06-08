@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.util.Optional;
+
 public class ExecJarInstallerTest extends Tests.Expect {
 
 	@Mock Io.Fs fs;
@@ -18,7 +20,7 @@ public class ExecJarInstallerTest extends Tests.Expect {
 	final String workingDir = "/tmp";
 	@InjectMocks ExecJarInstaller installer;
 
-	ExecJarParams params;
+	Optional<JarParams> params;
 
 	@Before
 	public void setUp() throws Exception {
@@ -29,35 +31,35 @@ public class ExecJarInstallerTest extends Tests.Expect {
 		given(env.jarPath()).returns("jarPath");
 		given(fs.file("jarPath", "myJar")).returns(targetFile);
 
-		params = new ExecJarParams("myJar");
+		params = Optional.of(new JarParams("myJar"));
 	}
 
 	@Test(expected = GetMe.Err.class)
 	public void testShouldThrowWhenNoJarParamFound() throws Exception {
-		installer.install(workingDir, new ExecJarParams());
+		installer.exec(workingDir, Optional.of(new JarParams()));
 	}
 
 	@Test(expected = GetMe.Err.class)
 	public void testShouldThrowOnEmptyJarParam() throws Exception {
-		installer.install(workingDir, new ExecJarParams(""));
+		installer.exec(workingDir, Optional.of(new JarParams("")));
 	}
 
 	@Test
 	public void testShouldCopyExecutableJarToJarPath() throws Exception {
-		installer.install(workingDir, params);
+		installer.exec(workingDir, params);
 		expect(sourceJar).toHaveCall().copyTo(targetFile);
 	}
 
 	@Test(expected = GetMe.Err.class)
 	public void testShouldThrowIfNoJarExists() throws Exception {
 		given(sourceJar.exists()).returns(Boolean.FALSE);
-		installer.install(workingDir, params);
+		installer.exec(workingDir, params);
 	}
 
 	@Test(expected = GetMe.Err.class)
 	public void testShouldThrowIfJarPathIsNotSet() throws Exception {
 		given(env.jarPath()).returns(null);
-		installer.install(workingDir, params);
+		installer.exec(workingDir, params);
 	}
 
 }

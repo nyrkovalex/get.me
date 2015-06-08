@@ -1,6 +1,6 @@
 package com.github.nyrkovalex.get.me;
 
-import com.github.nyrkovalex.get.me.install.ExecJarParams;
+import com.github.nyrkovalex.get.me.install.JarParams;
 import com.github.nyrkovalex.get.me.mvn.MvnParams;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Tests;
@@ -11,6 +11,7 @@ import org.mockito.Mock;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.Optional;
 
 public class JsonsTest extends Tests.Expect {
 
@@ -23,7 +24,7 @@ public class JsonsTest extends Tests.Expect {
 			+ "    }\n"
 			+ "  },\n"
 			+ "  \"installer\": {\n"
-			+ "    \"class\": \"com.github.nyrkovalex.get.me.install.ExecJarInstaller\",\n"
+			+ "    \"class\": \"com.github.nyrkovalex.get.me.exec.ExecJarInstaller\",\n"
 			+ "    \"params\": {\n"
 			+ "      \"jar\": \"target/get.me.jar\"\n"
 			+ "    }\n"
@@ -48,19 +49,19 @@ public class JsonsTest extends Tests.Expect {
 
 	@Test
 	public void testShouldParseInstaller() throws Exception {
-		expect(parsed.installer().className()).toBe("com.github.nyrkovalex.get.me.install.ExecJarInstaller");
+		expect(parsed.installer().className()).toBe("com.github.nyrkovalex.get.me.exec.ExecJarInstaller");
 	}
 
 	@Test
 	public void testShouldParseBulderParams() throws Exception {
-		MvnParams params = parsed.builder().params(MvnParams.class);
+		MvnParams params = parsed.builder().params(Optional.of(MvnParams.class)).get();
 		expect(params.goals.get(0)).toBe("clean");
 		expect(params.goals.get(1)).toBe("package");
 	}
 
 	@Test
 	public void testShouldParseInstallerParams() throws Exception {
-		ExecJarParams params = parsed.installer().params(ExecJarParams.class);
+		JarParams params = parsed.installer().params(Optional.of(JarParams.class)).get();
 		expect(params.jar).toBe("target/get.me.jar");
 	}
 }

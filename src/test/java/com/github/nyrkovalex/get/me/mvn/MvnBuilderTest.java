@@ -15,8 +15,9 @@ import org.mockito.Mock;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
 
 @RunWith(Enclosed.class)
 public class MvnBuilderTest extends Tests.Expect {
@@ -29,31 +30,32 @@ public class MvnBuilderTest extends Tests.Expect {
 
 		@Before
 		public void setUp() throws Exception {
-			given(mvn.run(any(List.class))).returns(runner);
+			given(mvn.run(anyObject())).returns(runner);
 		}
 
 		@Test
 		public void testShouldUseDefaultTargets() throws Exception {
-			builder.build("foo", new MvnParams());
+			builder.exec("foo", Optional.of(new MvnParams()));
 			expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
 		}
 
 		@Test
 		public void testShouldUseProvidedTargets() throws Exception {
 			List<String> targets = Arrays.asList("bar", "baz");
-			builder.build("foo", new MvnParams(targets));
+			builder.exec("foo", Optional.of(new MvnParams(targets)));
 			expect(mvn).toHaveCall().run(targets);
 		}
 
 		@Test
 		public void testShouldUseDefaultTargetsOnNullParams() throws Exception {
-			builder.build("foo", null);
+			Optional<MvnParams> params = Optional.empty();
+			builder.exec("foo", params);
 			expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
 		}
 
 		@Test
 		public void testShouldUseDefaultTargetsOnNullGoals() throws Exception {
-			builder.build("foo", new MvnParams(null));
+			builder.exec("foo", Optional.of(new MvnParams()));
 			expect(mvn).toHaveCall().run(MvnBuilder.DEFAULT_GOALS);
 		}
 	}
@@ -85,7 +87,7 @@ public class MvnBuilderTest extends Tests.Expect {
 
 		@Test
 		public void testShouldSetPomFile() throws Exception {
-			expect(req).toHaveCall().setPomFile(Paths.get("/tmp", MvnBuilder.POM_XML_NAME).toFile());
+			expect(req).toHaveCall().setPomFile(Paths.get("/tmp", Mvn.POM_XML_NAME).toFile());
 		}
 
 		@Test

@@ -1,14 +1,14 @@
 package com.github.nyrkovalex.get.me.install;
 
-public class ExecJarParams {
+public class JarParams {
 
 	public final String jar;
 
-	ExecJarParams() {
+	JarParams() {
 		this.jar = null;
 	}
 
-	ExecJarParams(String jar) {
+	JarParams(String jar) {
 		this.jar = jar;
 	}
 }

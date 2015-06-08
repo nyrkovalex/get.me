@@ -8,8 +8,9 @@ import org.mockito.Mock;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyObject;
 
 public class MvnInstallerTest extends Tests.Expect {
 
@@ -19,13 +20,12 @@ public class MvnInstallerTest extends Tests.Expect {
 
 	@Before
 	public void setUp() throws Exception {
-		given(mvn.run(any(List.class))).returns(runner);
+		given(mvn.run(anyObject())).returns(runner);
 	}
 
 	@Test
 	public void testShouldRunDefaultGoals() throws Exception {
-		MvnParams params = new MvnParams(null);
-		installer.install("/tmp", params);
+		installer.exec("/tmp", Optional.of(new MvnParams(null)));
 		expect(mvn).toHaveCall().run(MvnInstaller.DEFAULT_GOALS);
 	}
 
@@ -33,19 +33,19 @@ public class MvnInstallerTest extends Tests.Expect {
 	public void testShouldUseProvidedGoals() throws Exception {
 		List<String> goals = Arrays.asList("foo", "bar");
 		MvnParams params = new MvnParams(goals);
-		installer.install("/tmp", params);
+		installer.exec("/tmp", Optional.of(params));
 		expect(mvn).toHaveCall().run(goals);
 	}
 
 	@Test
 	public void testShouldRunDefaultGoalsWithNullParams() throws Exception {
-		installer.install("/tmp", null);
+		installer.exec("/tmp", Optional.<MvnParams>empty());
 		expect(mvn).toHaveCall().run(MvnInstaller.DEFAULT_GOALS);
 	}
 
 	@Test
 	public void testShouldRunDefaultGoalsWithEmptyParams() throws Exception {
-		installer.install("/tmp", new MvnParams());
+		installer.exec("/tmp", Optional.of(new MvnParams()));
 		expect(mvn).toHaveCall().run(MvnInstaller.DEFAULT_GOALS);
 	}
 

@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 class Mvn {
 
+	static final String POM_XML_NAME = "pom.xml";
 	private static final Mvn INSTANCE = new Mvn();
 	private static final MvnApi API = new MvnApi();
 
@@ -60,7 +61,7 @@ class Mvn {
 
 		private InvocationRequest createInvocationRequest(String path) {
 			InvocationRequest request = api.invocationRequest();
-			request.setPomFile(Paths.get(path, MvnBuilder.POM_XML_NAME).toFile());
+			request.setPomFile(Paths.get(path, POM_XML_NAME).toFile());
 			request.setGoals(goals);
 			return request;
 		}
