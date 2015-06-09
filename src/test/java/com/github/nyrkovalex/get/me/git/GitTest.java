@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.git;
 
 import com.github.nyrkovalex.seed.Seed;
 import com.github.nyrkovalex.seed.Sys;
@@ -10,13 +10,12 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
-import static org.mockito.Matchers.anyString;
 
 @RunWith(Enclosed.class)
 public class GitTest {
@@ -76,8 +75,8 @@ public class GitTest {
 
 		@Before
 		public void setUp() throws Exception {
-			given(inputProvider.read(anyString())).returns("plain");
-			given(inputProvider.readSecure(anyString())).returns("secure");
+			given(inputProvider.read(Matchers.anyString())).returns("plain");
+			given(inputProvider.readSecure(Matchers.anyString())).returns("secure");
 		}
 
 		@Test
@@ -100,14 +99,14 @@ public class GitTest {
 
 		@Test
 		public void testShouldProvideTrueInputForUppercaseYesNoCredRequest() throws Exception {
-			given(inputProvider.read(anyString())).returns("Y");
+			given(inputProvider.read(Matchers.anyString())).returns("Y");
 			yesNoHandler.apply(yesNoRequest);
 			expect(yesNoRequest).toHaveCall().setValue(true);
 		}
 
 		@Test
 		public void testShouldProvideTrueInputForLowercaseYesNoCredRequest() throws Exception {
-			given(inputProvider.read(anyString())).returns("y");
+			given(inputProvider.read(Matchers.anyString())).returns("y");
 			yesNoHandler.apply(yesNoRequest);
 			expect(yesNoRequest).toHaveCall().setValue(true);
 		}

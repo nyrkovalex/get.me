@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.param;
 
 import com.github.nyrkovalex.seed.Tests;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.env;
 
 import com.github.nyrkovalex.seed.Sys;
 import com.github.nyrkovalex.seed.Tests;

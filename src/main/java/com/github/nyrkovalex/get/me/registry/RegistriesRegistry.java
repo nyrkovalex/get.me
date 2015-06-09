@@ -1,47 +1,10 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.registry;
 
-import com.github.nyrkovalex.get.me.api.GetMe;
-import com.github.nyrkovalex.get.me.mvn.MvnBuilder;
 import com.github.nyrkovalex.seed.Plugins;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
-final class Registries {
-
-	private Registries() {
-		// Module
-	}
-
-	private static final Envs.Env ENV = Envs.env();
-	private static final Plugins.Loader LOADER = Plugins.loader();
-
-	public static Registries.Registry<GetMe.Plugin> pluginRegistry() {
-		Plugins.Repo repo = LOADER.repo(ENV.pluginsHome());
-		return Registries.registry(repo, GetMe.Plugin.class, new MvnBuilder());
-	}
-
-	static class Err extends Exception {
-
-		public Err() {
-		}
-
-		Err(String message, Throwable cause) {
-			super(message, cause);
-		}
-	}
-
-	public static <T> Registry<T> registry(Plugins.Repo repo, Class<T> clazz, T... defaults) {
-		return new RegistriesRegistry<>(repo, clazz, Arrays.asList(defaults));
-	}
-
-	public interface Registry<T> {
-
-		T forName(String className) throws Err;
-	}
-}
 
 class RegistriesRegistry<T> implements Registries.Registry<T> {
 

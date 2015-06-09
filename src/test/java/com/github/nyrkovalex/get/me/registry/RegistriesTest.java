@@ -1,4 +1,4 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.registry;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.get.me.mvn.MvnBuilder;
@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import java.util.Collections;
+
 public class RegistriesTest extends Tests.Expect {
 
 	@Mock Plugins.Repo repo;
@@ -16,7 +18,7 @@ public class RegistriesTest extends Tests.Expect {
 
 	@Before
 	public void setUp() throws Exception {
-		registry = Registries.registry(repo, GetMe.Plugin.class, new MvnBuilder());
+		registry = new RegistriesRegistry<>(repo, GetMe.Plugin.class, Collections.singletonList(new MvnBuilder()));
 	}
 
 	@Test

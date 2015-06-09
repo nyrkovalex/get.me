@@ -1,75 +1,12 @@
-package com.github.nyrkovalex.get.me;
+package com.github.nyrkovalex.get.me.git;
 
-import com.github.nyrkovalex.seed.Seed;
 import com.github.nyrkovalex.seed.Sys;
-import org.eclipse.jgit.api.CloneCommand;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.errors.UnsupportedCredentialItem;
-import org.eclipse.jgit.lib.TextProgressMonitor;
 import org.eclipse.jgit.transport.CredentialItem;
-import org.eclipse.jgit.transport.CredentialsProvider;
-import org.eclipse.jgit.transport.URIish;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.logging.Logger;
-
-final class Git {
-
-	private Git() {
-		// Module
-	}
-
-	public interface Cloner {
-
-		CloneCommand clone(String url);
-	}
-
-	public interface CloneCommand {
-
-		void to(String path) throws Err;
-	}
-
-	public static Cloner cloner() {
-		return GitCloneCommand::new;
-	}
-
-	static class Err extends Exception {
-
-		Err(String url, String path, Throwable cause) {
-			super(String.format("Failed to clone %s to %s, see cause for details", url, path), cause);
-		}
-	}
-}
-
-class GitCloneCommand implements Git.CloneCommand {
-
-	private static final Logger LOG = Seed.logger(GitCloneCommand.class);
-	private final String url;
-
-	public GitCloneCommand(String url) {
-		this.url = url;
-	}
-
-	@Override
-	public void to(String path) throws Git.Err {
-		LOG.fine(() -> String.format("Cloning %s into %s...", url, path));
-		CloneCommand cloner = org.eclipse.jgit.api.Git.cloneRepository()
-				.setURI(url)
-				.setCredentialsProvider(new GitCredentialsProvider(
-						CredentialHandlers.handlerMap()))
-				.setProgressMonitor(new TextProgressMonitor())
-				.setDirectory(new File(path));
-		try {
-			cloner.call();
-		} catch (GitAPIException e) {
-			throw new Git.Err(url, path, e);
-		}
-	}
-}
 
 class CredentialHandlers {
 
@@ -77,7 +14,7 @@ class CredentialHandlers {
 	private static final StringHandler STRING_HANDLER = new StringHandler(CONSOLE);
 	private static final CharArrayHandler CHAR_ARR_HANDLER = new CharArrayHandler(CONSOLE);
 	private static final YesNoHandler YES_NO_HANDLER = new YesNoHandler(CONSOLE);
-	private static final CredentialHandlers.InfoHandler INFO_HANDLER = new CredentialHandlers.InfoHandler();
+	private static final InfoHandler INFO_HANDLER = new InfoHandler();
 
 	static Map<Class<?>, Function<CredentialItem, Boolean>> handlerMap() {
 		Map<Class<?>, Function<CredentialItem, Boolean>> map = new HashMap<>();
@@ -157,44 +94,4 @@ class CredentialHandlers {
 			       : console.read(prompt);
 		}
 	}
-}
-
-class GitCredentialsProvider extends CredentialsProvider {
-
-	private final Map<Class<?>, Function<CredentialItem, Boolean>> handlers;
-
-	GitCredentialsProvider(Map<Class<?>, Function<CredentialItem, Boolean>> handlers) {
-		this.handlers = handlers;
-	}
-
-	@Override
-	public boolean isInteractive() {
-		return true;
-	}
-
-	@Override
-	public boolean supports(CredentialItem... items) {
-		for (CredentialItem item : items) {
-			if (!handlers.containsKey(item.getClass())) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	@Override
-	public boolean get(URIish uri, CredentialItem... items) throws UnsupportedCredentialItem {
-		System.out.println("Credentials are required to clone " + uri.toString());
-		for (CredentialItem item : items) {
-			if (!handle(item)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean handle(CredentialItem item) {
-		return handlers.get(item.getClass()).apply(item);
-	}
-
 }

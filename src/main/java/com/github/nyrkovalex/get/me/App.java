@@ -1,9 +1,15 @@
 package com.github.nyrkovalex.get.me;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
+import com.github.nyrkovalex.get.me.env.Envs;
+import com.github.nyrkovalex.get.me.git.Git;
+import com.github.nyrkovalex.get.me.json.Jsons;
+import com.github.nyrkovalex.get.me.param.Params;
+import com.github.nyrkovalex.get.me.registry.Registries;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Seed;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -50,25 +56,17 @@ final class App {
 		try {
 			cloner.clone(url).to(tempDir.path());
 			Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
-			Jsons.Descriptor parsed = parser.parse(descriptorFile);
-			build(parsed, tempDir.path());
-			install(parsed, tempDir.path());
+			List<Jsons.Description> parsed = parser.parse(descriptorFile);
+			for (Jsons.Description p : parsed) {
+				runPlugin(tempDir.path(), p);
+			}
 		} finally {
 			tempDir.delete();
 		}
 	}
 
-	private void install(Jsons.Descriptor parsed, String workingDir) throws Exception {
-		LOG.info("Installing...");
-		runPlugin(workingDir, parsed.installer());
-	}
-
-	private void build(Jsons.Descriptor parsed, String workingDir) throws GetMe.Err, Registries.Err {
-		LOG.info("Building...");
-		runPlugin(workingDir, parsed.builder());
-	}
-
 	private void runPlugin(String workingDir, Jsons.Description builderDescription) throws Registries.Err, GetMe.Err {
+		LOG.info("Running " + builderDescription.className());
 		GetMe.Plugin builder = pluginsRegistry.forName(builderDescription.className());
 		Optional<Object> builderParams = builderDescription.params(builder.paramsClass());
 		builder.exec(workingDir, builderParams);

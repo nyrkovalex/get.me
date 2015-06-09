@@ -1,6 +1,6 @@
 package com.github.nyrkovalex.get.me.install;
 
-import com.github.nyrkovalex.get.me.Envs;
+import com.github.nyrkovalex.get.me.env.Envs;
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Io;
 
