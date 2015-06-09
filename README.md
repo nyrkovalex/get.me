@@ -89,12 +89,15 @@ Descriptor format is really simple
 
 
 # Future
+
 * The flow described above is to be automated
 * Dependency resolution mechanism so one can build all dependencies with single command
 * More installers and builders to come especially Installer capable of installing Builder
 and Installer plugins
 * Docs, manuals and guides
 
+# How may I help
 
-_Contributions welcome!_ Beware that coding style on this project is rather weird for java world.
-Feel free to contact me I won't bite :)
+0. There's an [issue list](https://github.com/nyrkovalex/get.me/issues) which contains recent
+issues. Fork, code, send me a pull request — I won't bite :)
+1. Feedback, suggestions, ideas, pretty much anything
