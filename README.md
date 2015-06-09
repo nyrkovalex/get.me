@@ -55,7 +55,7 @@ Currently the flow goes as follows
 2. Set `JARPATH` environment variable to that directory
 3. Download a [run.me script](https://gist.github.com/nyrkovalex/abc66911f6c1e227f76b) and put it somewhere
 under your `$PATH`. This fellow is about to run any jar under `$JARPATH` with one command
-4. Download [get.me.jar](https://github.com/nyrkovalex/get.me/releases/download/v0.1-alpha/get.me.jar)
+4. Download [get.me.jar](https://github.com/nyrkovalex/get.me/releases/download/v0.1-alpha2/get.me.jar)
 and put it under your `$JARPATH`. This is the first and non-stable version of Get.Me which will be able to
 update itself later
 5. Test your setup trying to install let's say [this project](https://github.com/nyrkovalex/migrate.me)
@@ -71,20 +71,20 @@ missing `migrate.me.json` that means everything went fine.
 1. Describe your desired builder and installer with their parameters (those are plugin-specific).
 Descriptor format is really simple
 ```json
-{
-  "builder": {
+[
+  {
     "class": "com.github.someone.BuilderClass",
     "params": {
       "plugin-specific stuff here": true
     }
   },
-  "installer": {
+  {
     "class": "com.github.someone.InstallerClass",
     "params": {
       "plugin-specific stuff here": true
     }
   }
-}
+]
 ```
 
 
