@@ -39,7 +39,8 @@ class GitCloneCommand implements Git.CloneCommand {
 		CloneCommand cloner = org.eclipse.jgit.api.Git.cloneRepository()
 				.setURI(url)
 				.setCredentialsProvider(new GitCredentialsProvider(
-						CredentialHandlers.handlerMap()))
+						CredentialHandlers.handlerMap()
+				))
 				.setProgressMonitor(
 						enableOutput
 								? new TextProgressMonitor()
