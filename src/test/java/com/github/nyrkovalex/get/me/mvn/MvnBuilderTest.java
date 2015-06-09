@@ -3,6 +3,7 @@ package com.github.nyrkovalex.get.me.mvn;
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Tests;
 import org.apache.maven.shared.invoker.InvocationRequest;
+import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
 import org.junit.Before;
@@ -65,6 +66,7 @@ public class MvnBuilderTest extends Tests.Expect {
 		@Mock MvnApi api;
 		@Mock Invoker invoker;
 		@Mock InvocationRequest req;
+		@Mock InvocationResult res;
 
 		List<String> goals = Arrays.asList("foo", "bar");
 
@@ -72,6 +74,7 @@ public class MvnBuilderTest extends Tests.Expect {
 		public void setUp() throws Exception {
 			given(api.invocationRequest()).returns(req);
 			given(api.invoker()).returns(invoker);
+			given(invoker.execute(anyObject())).returns(res);
 			new Mvn.Runner(api, goals).in("/tmp");
 		}
 
