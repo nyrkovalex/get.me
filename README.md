@@ -96,7 +96,7 @@ Descriptor format is really simple
 and Installer plugins
 * Docs, manuals and guides
 
-# How may I help
+# How may I help?
 
 0. There's an [issue list](https://github.com/nyrkovalex/get.me/issues) which contains recent
 issues. Fork, code, send me a pull request — I won't bite :)
