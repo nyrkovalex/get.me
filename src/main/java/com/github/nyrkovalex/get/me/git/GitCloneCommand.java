@@ -6,15 +6,22 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.TextProgressMonitor;
 
 import java.io.File;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 class GitCloneCommand implements Git.CloneCommand {
 
 	private static final Logger LOG = Seed.logger(GitCloneCommand.class);
 	private final String url;
+	private Optional<String> branchName = Optional.empty();
 
 	public GitCloneCommand(String url) {
 		this.url = url;
+	}
+
+	public GitCloneCommand branch(String branchName) {
+		this.branchName = Optional.of(branchName);
+		return this;
 	}
 
 	@Override
@@ -26,6 +33,7 @@ class GitCloneCommand implements Git.CloneCommand {
 						CredentialHandlers.handlerMap()))
 				.setProgressMonitor(new TextProgressMonitor())
 				.setDirectory(new File(path));
+		branchName.ifPresent(cloner::setBranch);
 		try {
 			cloner.call();
 		} catch (GitAPIException e) {

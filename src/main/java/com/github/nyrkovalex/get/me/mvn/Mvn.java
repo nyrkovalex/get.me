@@ -31,10 +31,16 @@ class Mvn {
 		private static final Logger LOG = Seed.logger(Runner.class);
 		private final MvnApi api;
 		private final List<String> goals;
+		private boolean enableOutput = false;
 
 		Runner(MvnApi api, List<String> goals) {
 			this.api = api;
 			this.goals = Collections.unmodifiableList(new ArrayList<>(goals));
+		}
+
+		public Runner enableOutput() {
+			this.enableOutput = true;
+			return this;
 		}
 
 		public void in(String path) throws GetMe.Err {
@@ -56,6 +62,9 @@ class Mvn {
 		private Invoker createMvnInvoker(String path) {
 			Invoker invoker = api.invoker();
 			invoker.setWorkingDirectory(Paths.get(path).toFile());
+			if (!enableOutput) {
+				invoker.setOutputHandler(null);
+			}
 			return invoker;
 		}
 

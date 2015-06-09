@@ -11,7 +11,6 @@ public final class Params {
 	public interface Parsed {
 
 		Set<String> urls();
-
 		boolean debug();
 	}
 
