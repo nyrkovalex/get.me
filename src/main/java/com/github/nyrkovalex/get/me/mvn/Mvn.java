@@ -63,6 +63,7 @@ class Mvn {
 				}
 				if (result.getExitCode() != 0) {
 					LOG.severe(() -> "Failed to build project :(");
+					throw new GetMe.Err("Maven execution failed");
 				}
 			} catch (MavenInvocationException | CommandLineException e) {
 				throw new GetMe.Err("Maven execution failed", e);
