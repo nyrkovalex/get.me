@@ -21,13 +21,15 @@ class GitCloneCommand implements Git.CloneCommand {
 		this.url = url;
 	}
 
+	@Override
 	public GitCloneCommand branch(String branchName) {
 		this.branchName = Optional.of(branchName);
 		return this;
 	}
 
-	public GitCloneCommand enableOutput() {
-		this.enableOutput = true;
+	@Override
+	public GitCloneCommand enableOutput(boolean enable) {
+		this.enableOutput = enable;
 		return this;
 	}
 

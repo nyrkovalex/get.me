@@ -12,7 +12,8 @@ public final class Git {
 	}
 
 	public interface CloneCommand {
-
+		CloneCommand enableOutput(boolean enable);
+		CloneCommand branch(String branchName);
 		void to(String path) throws Err;
 	}
 

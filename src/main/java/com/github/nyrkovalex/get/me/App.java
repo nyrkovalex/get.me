@@ -54,7 +54,9 @@ final class App {
 	private void buildTarget(String url) throws Exception {
 		Io.Dir tempDir = fs.tempDir();
 		try {
-			cloner.clone(url).to(tempDir.path());
+			cloner.clone(url)
+					.enableOutput(params.debug())
+					.to(tempDir.path());
 			Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
 			List<Jsons.Description> parsed = parser.parse(descriptorFile);
 			for (Jsons.Description p : parsed) {

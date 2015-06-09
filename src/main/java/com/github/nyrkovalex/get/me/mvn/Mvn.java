@@ -3,13 +3,16 @@ package com.github.nyrkovalex.get.me.mvn;
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Seed;
 import org.apache.maven.shared.invoker.InvocationRequest;
+import org.apache.maven.shared.invoker.InvocationResult;
 import org.apache.maven.shared.invoker.Invoker;
 import org.apache.maven.shared.invoker.MavenInvocationException;
+import org.codehaus.plexus.util.cli.CommandLineException;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 class Mvn {
@@ -38,8 +41,8 @@ class Mvn {
 			this.goals = Collections.unmodifiableList(new ArrayList<>(goals));
 		}
 
-		public Runner enableOutput() {
-			this.enableOutput = true;
+		public Runner enableOutput(boolean enable) {
+			this.enableOutput = enable;
 			return this;
 		}
 
@@ -53,8 +56,12 @@ class Mvn {
 
 		private void run(InvocationRequest request, Invoker invoker) throws GetMe.Err {
 			try {
-				invoker.execute(request);
-			} catch (MavenInvocationException e) {
+				InvocationResult result = invoker.execute(request);
+				CommandLineException executionException = result.getExecutionException();
+				if (!Objects.isNull(executionException)) {
+					throw executionException;
+				}
+			} catch (MavenInvocationException | CommandLineException e) {
 				throw new GetMe.Err("Maven execution failed", e);
 			}
 		}
