@@ -5,10 +5,10 @@ import com.github.nyrkovalex.get.me.env.Envs;
 import com.github.nyrkovalex.get.me.git.Git;
 import com.github.nyrkovalex.get.me.json.Jsons;
 import com.github.nyrkovalex.get.me.param.Params;
+import com.github.nyrkovalex.get.me.param.RepoUrl;
 import com.github.nyrkovalex.get.me.registry.Registries;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Seed;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ final class App {
 
 	public static void main(String... args) throws Exception {
 		Params.Parsed params = parseArguments(args);
-		Seed.Logging.init(params.debug(), App.class);
+		Seed.Logging.init(params.isDebug(), App.class);
 		App getMe = new App(params);
 		getMe.run();
 	}
@@ -46,16 +46,17 @@ final class App {
 	}
 
 	private void run() throws Exception {
-		for (String url : params.urls()) {
+		for (RepoUrl url : params.getUrls()) {
 			buildTarget(url);
 		}
 	}
 
-	private void buildTarget(String url) throws Exception {
+	private void buildTarget(RepoUrl url) throws Exception {
 		Io.Dir tempDir = fs.tempDir();
 		try {
-			cloner.clone(url)
-					.enableOutput(params.debug())
+			cloner.clone(url.getUrl())
+					.branch(url.getBranch())
+					.enableOutput(params.isDebug())
 					.to(tempDir.path());
 			Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
 			List<Jsons.Description> parsed = parser.parse(descriptorFile);
@@ -67,10 +68,13 @@ final class App {
 		}
 	}
 
+  // We don't know the generic argument type here,
+	// it's client's job to provide correct class for JSON deserialization
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void runPlugin(String workingDir, Jsons.Description builderDescription) throws Registries.Err, GetMe.Err {
-		LOG.info("Running " + builderDescription.className());
+		LOG.info(() -> "Running " + builderDescription.className());
 		GetMe.Plugin builder = pluginsRegistry.forName(builderDescription.className());
-		Optional<Object> builderParams = builderDescription.params(builder.paramsClass());
+		Optional builderParams = builderDescription.params(builder.paramsClass());
 		builder.exec(workingDir, builderParams);
 	}
 

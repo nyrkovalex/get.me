@@ -2,10 +2,7 @@ package com.github.nyrkovalex.get.me.registry;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.get.me.env.Envs;
-import com.github.nyrkovalex.get.me.mvn.MvnBuilder;
 import com.github.nyrkovalex.seed.Plugins;
-
-import java.util.Collections;
 
 public final class Registries {
 
@@ -18,11 +15,7 @@ public final class Registries {
 
 	public static Registries.Registry<GetMe.Plugin> pluginRegistry() {
 		Plugins.Repo repo = LOADER.repo(ENV.pluginsHome());
-		return new RegistriesRegistry<>(
-				repo,
-				GetMe.Plugin.class,
-				Collections.singletonList(new MvnBuilder())
-		);
+		return new RegistriesRegistry<>(repo, GetMe.Plugin.class);
 	}
 
 	public static class Err extends Exception {
@@ -39,4 +32,3 @@ public final class Registries {
 		T forName(String className) throws Err;
 	}
 }
-

@@ -20,19 +20,19 @@ public class ParamsTest extends Tests.Expect {
 	@Test
 	public void testShouldSetRepositoryUrl() throws Exception {
 		ParamsParsed params = ParamsParsed.from(gitdepUrl);
-		expect(params.urls().contains(gitdepUrl)).toBe(true);
+		expect(params.getUrls().contains(gitdepUrl)).toBe(true);
 	}
 
 	@Test
 	public void testShouldSetMultipleRepositoryUrls() throws Exception {
 		ParamsParsed params = ParamsParsed.from(gitdepUrl, guavaUrl);
-		expect(params.urls().containsAll(Arrays.asList(gitdepUrl, guavaUrl))).toBe(true);
+		expect(params.getUrls().containsAll(Arrays.asList(gitdepUrl, guavaUrl))).toBe(true);
 	}
 
 	@Test
 	public void testShouldEnableDebugMode() throws Exception {
 		ParamsParsed parameters = ParamsParsed.from(gitdepUrl, "-debug");
-		expect(parameters.debug()).toBe(true);
+		expect(parameters.isDebug()).toBe(true);
 	}
 
 	@Test(expected = Params.Err.class)

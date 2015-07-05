@@ -1,14 +1,13 @@
 package com.github.nyrkovalex.get.me.git;
 
 import com.github.nyrkovalex.seed.Seed;
+import java.io.File;
+import java.util.Optional;
+import java.util.logging.Logger;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.lib.TextProgressMonitor;
-
-import java.io.File;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 class GitCloneCommand implements Git.CloneCommand {
 
@@ -22,8 +21,8 @@ class GitCloneCommand implements Git.CloneCommand {
 	}
 
 	@Override
-	public GitCloneCommand branch(String branchName) {
-		this.branchName = Optional.of(branchName);
+	public GitCloneCommand branch(Optional<String> branchName) {
+		this.branchName = branchName;
 		return this;
 	}
 

@@ -1,10 +1,11 @@
 package com.github.nyrkovalex.get.me.registry;
 
-import com.github.nyrkovalex.seed.Plugins;
-
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import com.github.nyrkovalex.seed.Plugins;
 
 class RegistriesRegistry<T> implements Registries.Registry<T> {
 
@@ -12,6 +13,10 @@ class RegistriesRegistry<T> implements Registries.Registry<T> {
 	private final Map<String, T> defaultExecutors;
 	private final Plugins.Repo repo;
 	private final Class<T> clazz;
+
+	RegistriesRegistry(Plugins.Repo repo, Class<T> clazz) {
+		this(repo, clazz, Collections.emptyList());
+	}
 
 	RegistriesRegistry(Plugins.Repo repo, Class<T> clazz, Iterable<T> defaults) {
 		defaultExecutors = new HashMap<>();

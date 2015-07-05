@@ -10,8 +10,8 @@ public final class Params {
 
 	public interface Parsed {
 
-		Set<String> urls();
-		boolean debug();
+		Set<RepoUrl> getUrls();
+		boolean isDebug();
 	}
 
 	public static Parsed parse(String[] args) throws Err {
@@ -29,6 +29,14 @@ public final class Params {
 				+ "\n"
 				+ "Flags:\n"
 				+ "-debug - Enable debug output\n";
+
+		Err() {
+			super();
+		}
+
+		Err(String message) {
+			super(message);
+		}
 
 		@Override
 		public String getMessage() {

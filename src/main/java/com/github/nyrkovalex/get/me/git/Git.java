@@ -1,5 +1,7 @@
 package com.github.nyrkovalex.get.me.git;
 
+import java.util.Optional;
+
 public final class Git {
 
 	private Git() {
@@ -13,7 +15,7 @@ public final class Git {
 
 	public interface CloneCommand {
 		CloneCommand enableOutput(boolean enable);
-		CloneCommand branch(String branchName);
+		CloneCommand branch(Optional<String> branchName);
 		void to(String path) throws Err;
 	}
 

@@ -1,6 +1,8 @@
 package com.github.nyrkovalex.get.me.install;
 
 import com.github.nyrkovalex.get.me.env.Envs;
+import com.github.nyrkovalex.get.me.install.ExecJarInstaller;
+import com.github.nyrkovalex.get.me.install.JarParams;
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.seed.Io;
 import com.github.nyrkovalex.seed.Tests;

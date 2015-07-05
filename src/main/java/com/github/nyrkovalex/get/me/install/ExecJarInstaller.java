@@ -1,9 +1,8 @@
 package com.github.nyrkovalex.get.me.install;
 
-import com.github.nyrkovalex.get.me.env.Envs;
 import com.github.nyrkovalex.get.me.api.GetMe;
+import com.github.nyrkovalex.get.me.env.Envs;
 import com.github.nyrkovalex.seed.Io;
-
 import java.util.Objects;
 import java.util.Optional;
 
@@ -24,8 +23,9 @@ public class ExecJarInstaller implements GetMe.Plugin<JarParams> {
 
 	@Override
 	public void exec(String workingDir, Optional<JarParams> params) throws GetMe.Err {
-		JarParams jarParams = params.orElseThrow(
-				() -> new GetMe.Err("`jar` parameter must be provided"));
+		JarParams jarParams = params.orElseThrow(() -> {
+			return new GetMe.Err("`jar` parameter must be provided");
+		});
 		String targetPath = jarParams.jar;
 		try {
 			Io.File sourceFile = sourceJar(workingDir, targetPath);
