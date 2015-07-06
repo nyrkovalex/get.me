@@ -58,11 +58,12 @@ under your `$PATH`. This fellow is about to run any jar under `$JARPATH` with on
 4. Download [get.me.jar](https://github.com/nyrkovalex/get.me/releases/download/v0.1-alpha2/get.me.jar)
 and put it under your `$JARPATH`. This is the first and non-stable version of Get.Me which will be able to
 update itself later
-5. Test your setup trying to install let's say [this project](https://github.com/nyrkovalex/migrate.me)
-by running `run.me get.me https://github.com/nyrkovalex/migrate.me`. You should see some maven build
-output and if everything goes fine you'll get a `migrate.me.jar` under your `$JARPATH` directory.
-You may now try running it with `run.me migrate.me`. This should print you an error message about
-missing `migrate.me.json` that means everything went fine.
+5. Test your setup trying to install let's say [this project](https://github.com/nyrkovalex/get.me-example)
+by running `run.me get.me https://github.com/nyrkovalex/get.me-example::0.0.2`. Notice the part after `::`
+it is tag or branch name. If omitted `get.me` will download the default branch. You should see some console
+output and if everything goes fine you'll get a `get.me-example.jar` under your `$JARPATH` directory.
+You may now try running it with `run.me get.me-example`. This should print you its version and finish.
+If it did then everything went fine.
 
 
 # How can I make my software installable by Get.Me?
