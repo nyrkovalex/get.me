@@ -55,8 +55,8 @@ Currently the flow goes as follows
 2. Set `JARPATH` environment variable to that directory
 3. Download a [run.me script](https://gist.github.com/nyrkovalex/abc66911f6c1e227f76b) and put it somewhere
 under your `$PATH`. This fellow is about to run any jar under `$JARPATH` with one command
-4. Download [get.me.jar](https://github.com/nyrkovalex/get.me/releases/download/v0.1-alpha2/get.me.jar)
-and put it under your `$JARPATH`. This is the first and non-stable version of Get.Me which will be able to
+4. Download [get.me.jar](https://github.com/nyrkovalex/get.me/releases/download/v0.1-alpha3/get.me.jar)
+and put it under your `$JARPATH`. This is a and non-stable version of Get.Me which will be able to
 update itself later
 5. Test your setup trying to install let's say [this project](https://github.com/nyrkovalex/get.me-example)
 by running `run.me get.me https://github.com/nyrkovalex/get.me-example::0.0.2`. Notice the part after `::`
