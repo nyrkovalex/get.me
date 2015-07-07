@@ -1,54 +1,56 @@
 package com.github.nyrkovalex.get.me.env;
 
-import com.github.nyrkovalex.seed.Sys;
-import com.github.nyrkovalex.seed.Tests;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.runners.Enclosed;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(Enclosed.class)
+import com.github.nyrkovalex.seed.Sys;
+
 public class EnvsTest {
 
-	public static final class EnvsEnvTest extends Tests.Expect {
+	@Mock
+	Sys.Env seedEnv;
 
-		@Mock Sys.Env seedEnv;
-		private Envs.Env env;
+	@InjectMocks
+	private EnvsEnv env;
 
-		@Before
-		public void setUp() throws Exception {
-			env = new EnvsEnv(seedEnv);
-		}
-
-		@Test
-		public void testShouldGetCwd() throws Exception {
-			given(seedEnv.cwd()).returns("foo");
-			expect(env.cwd()).toBe("foo");
-		}
-
-		@Test
-		public void testShouldReturnPluginsHome() throws Exception {
-			given(seedEnv.userHome()).returns("user");
-			expect(env.pluginsHome()).toBe("user" + EnvsEnv.GETME_HOME + EnvsEnv.PLUGINS_HOME);
-		}
-
-		@Test
-		public void testShouldReturnGetMeHome() throws Exception {
-			given(seedEnv.userHome()).returns("user");
-			expect(env.getMeHome()).toBe("user" + EnvsEnv.GETME_HOME);
-		}
-
-		@Test
-		public void testShouldReturnDescriptorFileName() throws Exception {
-			expect(env.descriptorFileName()).toBe(EnvsEnv.DESCRIPTOR_FILENAME);
-		}
-
-		@Test
-		public void testShouldReturnJarPathVariable() throws Exception {
-			given(seedEnv.read("JARPATH")).returns("/my/jarpath");
-			expect(env.jarPath()).toBe("/my/jarpath");
-		}
+	@Before
+	public void setUp() throws Exception {
+		MockitoAnnotations.initMocks(this);
 	}
 
+	@Test
+	public void testShouldGetCwd() throws Exception {
+		when(seedEnv.cwd()).thenReturn("foo");
+		assertThat(env.cwd(), is("foo"));
+	}
+
+	@Test
+	public void testShouldReturnPluginsHome() throws Exception {
+		when(seedEnv.userHome()).thenReturn("user");
+		assertThat(env.pluginsHome(), is("user" + EnvsEnv.GETME_HOME + EnvsEnv.PLUGINS_HOME));
+	}
+
+	@Test
+	public void testShouldReturnGetMeHome() throws Exception {
+		when(seedEnv.userHome()).thenReturn("user");
+		assertThat(env.getMeHome(), is("user" + EnvsEnv.GETME_HOME));
+	}
+
+	@Test
+	public void testShouldReturnDescriptorFileName() throws Exception {
+		assertThat(env.descriptorFileName(), is(EnvsEnv.DESCRIPTOR_FILENAME));
+	}
+
+	@Test
+	public void testShouldReturnJarPathVariable() throws Exception {
+		when(seedEnv.read("JARPATH")).thenReturn("/my/jarpath");
+		assertThat(env.jarPath(), is("/my/jarpath"));
+	}
 }

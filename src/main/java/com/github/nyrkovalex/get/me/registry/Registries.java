@@ -19,10 +19,6 @@ public final class Registries {
 	}
 
 	public static class Err extends Exception {
-
-		public Err() {
-		}
-
 		Err(String message, Throwable cause) {
 			super(message, cause);
 		}

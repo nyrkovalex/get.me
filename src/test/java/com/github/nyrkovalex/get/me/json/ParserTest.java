@@ -1,23 +1,33 @@
 package com.github.nyrkovalex.get.me.json;
 
-import com.github.nyrkovalex.get.me.install.JarParams;
-import com.github.nyrkovalex.get.me.mvn.MvnParams;
-import com.github.nyrkovalex.seed.Io;
-import com.github.nyrkovalex.seed.Tests;
-import com.google.gson.Gson;
-import org.intellij.lang.annotations.Language;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class ParserTest extends Tests.Expect {
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-	@Language("JSON")
+import com.github.nyrkovalex.seed.Io;
+import com.google.gson.Gson;
+
+public class ParserTest {
+	
+	private static class MvnParams {
+		public final List<String> goals = Collections.emptyList();
+	}
+	
+	private static class JarParams {
+		public final String jar = null;
+	}
+
 	private static final String JSON = "[\n" +
 			"  {\n" +
 			"    \"class\": \"com.github.nyrkovalex.get.me.mvn.MvnBuilder\",\n" +
@@ -38,31 +48,32 @@ public class ParserTest extends Tests.Expect {
 
 	@Before
 	public void setUp() throws Exception {
-		given(file.reader()).returns(new BufferedReader(new StringReader(JSON)));
+		MockitoAnnotations.initMocks(this);
+		when(file.reader()).thenReturn(new BufferedReader(new StringReader(JSON)));
 		Parser parser = new Parser(new Gson());
 		parsed = parser.parse(file);
 	}
 
 	@Test
 	public void testShouldParseBuilder() throws Exception {
-		expect(parsed.get(0).className()).toBe("com.github.nyrkovalex.get.me.mvn.MvnBuilder");
+		assertThat(parsed.get(0).className(), is("com.github.nyrkovalex.get.me.mvn.MvnBuilder"));
 	}
 
 	@Test
 	public void testShouldParseInstaller() throws Exception {
-		expect(parsed.get(1).className()).toBe("com.github.nyrkovalex.get.me.exec.ExecJarInstaller");
+		assertThat(parsed.get(1).className(), is("com.github.nyrkovalex.get.me.exec.ExecJarInstaller"));
 	}
 
 	@Test
 	public void testShouldParseBulderParams() throws Exception {
 		MvnParams params = parsed.get(0).params(Optional.of(MvnParams.class)).get();
-		expect(params.goals.get(0)).toBe("clean");
-		expect(params.goals.get(1)).toBe("package");
+		assertThat(params.goals.get(0), is("clean"));
+		assertThat(params.goals.get(1), is("package"));
 	}
 
 	@Test
 	public void testShouldParseInstallerParams() throws Exception {
 		JarParams params = parsed.get(1).params(Optional.of(JarParams.class)).get();
-		expect(params.jar).toBe("target/get.me.jar");
+		assertThat(params.jar, is("target/get.me.jar"));
 	}
 }

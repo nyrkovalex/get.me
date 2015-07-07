@@ -1,41 +1,42 @@
 package com.github.nyrkovalex.get.me.registry;
 
-import com.github.nyrkovalex.get.me.api.GetMe;
-import com.github.nyrkovalex.get.me.mvn.MvnBuilder;
-import com.github.nyrkovalex.seed.Plugins;
-import com.github.nyrkovalex.seed.Tests;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.util.Collections;
+import com.github.nyrkovalex.get.me.api.GetMe;
+import com.github.nyrkovalex.seed.Plugins;
 
-public class RegistriesTest extends Tests.Expect {
+public class RegistriesTest {
 
-	@Mock Plugins.Repo repo;
-	@Mock GetMe.Plugin externalPlugin;
+	@Mock
+	Plugins.Repo repo;
+
+	@Mock
+	GetMe.Plugin<?> externalPlugin;
+
 	Registries.Registry<GetMe.Plugin> registry;
 
 	@Before
 	public void setUp() throws Exception {
-		registry = new RegistriesRegistry<>(repo, GetMe.Plugin.class, Collections.singletonList(new MvnBuilder()));
-	}
-
-	@Test
-	public void testShouldReturnDefaultPlugin() throws Exception {
-		GetMe.Plugin found = registry.forName(MvnBuilder.class.getCanonicalName());
-		expect(found.getClass().equals(MvnBuilder.class)).toBe(true);
+		MockitoAnnotations.initMocks(this);
+		registry = new RegistriesRegistry<>(repo, GetMe.Plugin.class);
 	}
 
 	@Test
 	public void testShouldLoadPluginFromRepo() throws Exception {
-		given(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).returns(externalPlugin);
-		expect(registry.forName("ExternalPlugin")).toBe(externalPlugin);
+		when(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).thenReturn(externalPlugin);
+		assertThat(registry.forName("ExternalPlugin"), is(externalPlugin));
 	}
 
 	@Test(expected = Registries.Err.class)
 	public void testShouldThrowWhenNoExecutorCanBeLoaded() throws Exception {
-		given(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).failsWith(Plugins.Err.class);
+		when(repo.instanceOf("ExternalPlugin", GetMe.Plugin.class)).thenThrow(Plugins.Err.class);
 		registry.forName("ExternalPlugin");
 	}
 }

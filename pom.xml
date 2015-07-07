@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.nyrkovalex</groupId>
   <artifactId>get.me</artifactId>
-  <version>0.1-alpha3</version>
+  <version>0.1-alpha4</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -17,20 +17,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven.shared</groupId>
-      <artifactId>maven-invoker</artifactId>
-      <version>2.1.1</version>
-    </dependency>
-    <dependency>
       <groupId>com.github.nyrkovalex</groupId>
       <artifactId>seed-core</artifactId>
       <version>${seed.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.nyrkovalex</groupId>
-      <artifactId>seed-test</artifactId>
-      <version>${seed.version}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -43,9 +32,16 @@
       <version>3.6.0.201412230720-r</version>
     </dependency>
     <dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations</artifactId>
-      <version>13.0</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <version>1.10.19</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
