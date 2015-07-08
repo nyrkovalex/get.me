@@ -20,18 +20,16 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.github.nyrkovalex.seed.Seed;
 import com.github.nyrkovalex.seed.Sys;
+import com.github.nyrkovalex.seed.logging.Logging;
 
 @RunWith(Enclosed.class)
 public class GitTest {
 
 	public static class CredentialsProviderTest {
 
-		@Mock
-		Function<CredentialItem, Boolean> function;
-		@Mock
-		URIish urIish;
+		@Mock Function<CredentialItem, Boolean> function;
+		@Mock URIish urIish;
 
 		private CredentialItem item;
 		private Map<Class<?>, Function<CredentialItem, Boolean>> handlers = new HashMap<>();
@@ -39,7 +37,7 @@ public class GitTest {
 
 		@Before
 		public void initLogging() throws Exception {
-			Seed.Logging.init(true, GitTest.class);
+			Logging.init(true, GitTest.class);
 		}
 
 		@Before
@@ -75,20 +73,13 @@ public class GitTest {
 
 	public static class CredentialHandlersTest {
 
-		@Mock
-		private CredentialItem.StringType stringRequest;
-		@Mock
-		private CredentialItem.CharArrayType charArrRequest;
-		@Mock
-		private CredentialItem.YesNoType yesNoRequest;
-		@Mock
-		private Sys.Console inputProvider;
-		@InjectMocks
-		private CredentialHandlers.CharArrayHandler charArrayHandler;
-		@InjectMocks
-		private CredentialHandlers.StringHandler stringHandler;
-		@InjectMocks
-		private CredentialHandlers.YesNoHandler yesNoHandler;
+		@Mock private CredentialItem.StringType stringRequest;
+		@Mock private CredentialItem.CharArrayType charArrRequest;
+		@Mock private CredentialItem.YesNoType yesNoRequest;
+		@Mock private Sys.Console inputProvider;
+		@InjectMocks private CredentialHandlers.CharArrayHandler charArrayHandler;
+		@InjectMocks private CredentialHandlers.StringHandler stringHandler;
+		@InjectMocks private CredentialHandlers.YesNoHandler yesNoHandler;
 
 		@Before
 		public void setUp() throws Exception {

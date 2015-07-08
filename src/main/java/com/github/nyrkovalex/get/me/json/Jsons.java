@@ -1,10 +1,11 @@
 package com.github.nyrkovalex.get.me.json;
 
-import com.github.nyrkovalex.seed.Io;
-import com.google.gson.Gson;
-
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+
+import com.google.gson.Gson;
+import com.gtihub.nyrkovalex.seed.nio.Fs;
 
 public final class Jsons {
 
@@ -13,7 +14,7 @@ public final class Jsons {
 	}
 
 	public static Parser parser() {
-		return new com.github.nyrkovalex.get.me.json.Parser(new Gson());
+		return new com.github.nyrkovalex.get.me.json.Parser(new Gson(), Fs.instance());
 	}
 
 	public interface Description {
@@ -22,7 +23,7 @@ public final class Jsons {
 	}
 
 	public interface Parser {
-		List<Description> parse(Io.File file) throws Err;
+		List<Description> parse(Path path) throws Err;
 	}
 
 	public static class Err extends Exception {

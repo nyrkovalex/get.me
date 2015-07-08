@@ -1,5 +1,10 @@
 package com.github.nyrkovalex.get.me;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.get.me.env.Envs;
 import com.github.nyrkovalex.get.me.git.Git;
@@ -7,19 +12,16 @@ import com.github.nyrkovalex.get.me.json.Jsons;
 import com.github.nyrkovalex.get.me.param.Params;
 import com.github.nyrkovalex.get.me.param.RepoUrl;
 import com.github.nyrkovalex.get.me.registry.Registries;
-import com.github.nyrkovalex.seed.Io;
-import com.github.nyrkovalex.seed.Seed;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
+import com.github.nyrkovalex.seed.logging.Logging;
+import com.gtihub.nyrkovalex.seed.nio.Fs;
 
 final class App {
 
-	private static final Logger LOG = Seed.logger(App.class);
+	private static final Logger LOG = Logging.logger(App.class);
 
 	public static void main(String... args) throws Exception {
 		Params.Parsed params = parseArguments(args);
-		Seed.Logging.init(params.isDebug(), App.class);
+		Logging.init(params.isDebug(), App.class);
 		App getMe = new App(params);
 		getMe.run();
 	}
@@ -39,7 +41,7 @@ final class App {
 	private final Registries.Registry<GetMe.Plugin> pluginsRegistry = Registries.pluginRegistry();
 	private final Git.Cloner cloner = Git.cloner();
 	private final Jsons.Parser parser = Jsons.parser();
-	private final Io.Fs fs = Io.fs();
+	private final Fs fileSys = Fs.instance();
 
 	private App(Params.Parsed params) {
 		this.params = params;
@@ -52,30 +54,30 @@ final class App {
 	}
 
 	private void buildTarget(RepoUrl url) throws Exception {
-		Io.Dir tempDir = fs.tempDir();
+		Path tempDir = fileSys.tempDir("get.me-");
 		try {
 			cloner.clone(url.getUrl())
 					.branch(url.getBranch())
 					.enableOutput(params.isDebug())
-					.to(tempDir.path());
-			Io.File descriptorFile = fs.file(tempDir.path(), env.descriptorFileName());
+					.to(tempDir);
+			Path descriptorFile = tempDir.resolve(env.descriptorFileName());
 			List<Jsons.Description> parsed = parser.parse(descriptorFile);
 			for (Jsons.Description p : parsed) {
-				runPlugin(tempDir.path(), p);
+				runPlugin(tempDir, p);
 			}
 		} finally {
-			tempDir.delete();
+			fileSys.deleteWithContents(tempDir);
 		}
 	}
 
   // We don't know the generic argument type here,
 	// it's client's job to provide correct class for JSON deserialization
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void runPlugin(String workingDir, Jsons.Description builderDescription) throws Registries.Err, GetMe.Err {
+	private void runPlugin(Path path, Jsons.Description builderDescription) throws Registries.Err, GetMe.Err {
 		LOG.info(() -> "Running " + builderDescription.className());
 		GetMe.Plugin builder = pluginsRegistry.forName(builderDescription.className());
 		Optional builderParams = builderDescription.params(builder.paramsClass());
-		builder.exec(workingDir, builderParams);
+		builder.exec(path, builderParams);
 	}
 
 }

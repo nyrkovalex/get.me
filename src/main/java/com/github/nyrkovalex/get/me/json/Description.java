@@ -1,9 +1,9 @@
 package com.github.nyrkovalex.get.me.json;
 
+import java.util.Optional;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
-import java.util.Optional;
 
 class Description implements Jsons.Description {
 

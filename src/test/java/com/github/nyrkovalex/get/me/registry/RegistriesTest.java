@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
-import com.github.nyrkovalex.seed.Plugins;
+import com.github.nyrkovalex.seed.plugins.Plugins;
 
 public class RegistriesTest {
 

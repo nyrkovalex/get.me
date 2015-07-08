@@ -1,11 +1,13 @@
 package com.github.nyrkovalex.get.me.param;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;

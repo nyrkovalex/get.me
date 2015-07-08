@@ -2,7 +2,7 @@ package com.github.nyrkovalex.get.me.registry;
 
 import java.util.logging.Logger;
 
-import com.github.nyrkovalex.seed.Plugins;
+import com.github.nyrkovalex.seed.plugins.Plugins;
 
 class RegistriesRegistry<T> implements Registries.Registry<T> {
 

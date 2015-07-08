@@ -1,5 +1,6 @@
 package com.github.nyrkovalex.get.me.api;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 public final class GetMe {
@@ -9,7 +10,7 @@ public final class GetMe {
 	}
 
 	public interface Plugin<P> {
-		void exec(String workingDir, Optional<P> params) throws Err;
+		void exec(Path path, Optional<P> params) throws Err;
 		Optional<Class<P>> paramsClass();
 	}
 

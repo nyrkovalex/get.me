@@ -2,7 +2,7 @@ package com.github.nyrkovalex.get.me.registry;
 
 import com.github.nyrkovalex.get.me.api.GetMe;
 import com.github.nyrkovalex.get.me.env.Envs;
-import com.github.nyrkovalex.seed.Plugins;
+import com.github.nyrkovalex.seed.plugins.Plugins;
 
 public final class Registries {
 

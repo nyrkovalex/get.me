@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +16,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.github.nyrkovalex.seed.Io;
 import com.google.gson.Gson;
+import com.gtihub.nyrkovalex.seed.nio.Fs;
 
 public class ParserTest {
 	
@@ -43,14 +44,15 @@ public class ParserTest {
 			"  }\n" +
 			"]\n";
 
-	@Mock Io.File file;
+	@Mock Path file;
+	@Mock Fs fs;
 	List<Jsons.Description> parsed;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		when(file.reader()).thenReturn(new BufferedReader(new StringReader(JSON)));
-		Parser parser = new Parser(new Gson());
+		when(fs.newBufferedReader(file)).thenReturn(new BufferedReader(new StringReader(JSON)));
+		Parser parser = new Parser(new Gson(), fs);
 		parsed = parser.parse(file);
 	}
 

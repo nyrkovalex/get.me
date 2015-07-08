@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.nyrkovalex</groupId>
   <artifactId>get.me</artifactId>
-  <version>0.1-alpha4</version>
+  <version>0.1-alpha5</version>
   <packaging>jar</packaging>
 
   <properties>
-    <seed.version>0.1-alpha</seed.version>
+    <seed.version>0.1-alpha2</seed.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -19,6 +19,21 @@
     <dependency>
       <groupId>com.github.nyrkovalex</groupId>
       <artifactId>seed-core</artifactId>
+      <version>${seed.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nyrkovalex</groupId>
+      <artifactId>seed-plugins</artifactId>
+      <version>${seed.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nyrkovalex</groupId>
+      <artifactId>seed-logging</artifactId>
+      <version>${seed.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nyrkovalex</groupId>
+      <artifactId>seed-fs</artifactId>
       <version>${seed.version}</version>
     </dependency>
     <dependency>
