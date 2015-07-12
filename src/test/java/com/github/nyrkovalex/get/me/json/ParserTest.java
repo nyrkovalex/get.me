@@ -1,8 +1,11 @@
 package com.github.nyrkovalex.get.me.json;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import com.google.gson.Gson;
+import com.gtihub.nyrkovalex.seed.nio.Fs;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
@@ -11,13 +14,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import com.google.gson.Gson;
-import com.gtihub.nyrkovalex.seed.nio.Fs;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 public class ParserTest {
 

@@ -90,8 +90,8 @@ class CredentialHandlers {
 		protected String readInput(CredentialItem credentialItem) {
 			String prompt = String.format("Please provide %s: ", credentialItem.getPromptText());
 			return credentialItem.isValueSecure()
-			       ? console.readSecure(prompt)
-			       : console.readLine(prompt);
+					? console.readSecure(prompt)
+					: console.readLine(prompt);
 		}
 	}
 }

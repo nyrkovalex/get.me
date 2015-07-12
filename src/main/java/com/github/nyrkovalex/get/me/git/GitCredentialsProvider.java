@@ -1,12 +1,12 @@
 package com.github.nyrkovalex.get.me.git;
 
-import java.util.Map;
-import java.util.function.Function;
-
 import org.eclipse.jgit.errors.UnsupportedCredentialItem;
 import org.eclipse.jgit.transport.CredentialItem;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.URIish;
+
+import java.util.Map;
+import java.util.function.Function;
 
 class GitCredentialsProvider extends CredentialsProvider {
 

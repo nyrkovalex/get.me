@@ -71,7 +71,7 @@ final class App {
 		}
 	}
 
-  // We don't know the generic argument type here,
+	// We don't know the generic argument type here,
 	// it's client's job to provide correct class for JSON deserialization
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void runPlugin(GetMe.ExecutionContext context, Description builderDescription)

@@ -1,15 +1,14 @@
 package com.github.nyrkovalex.get.me.git;
 
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
+import com.github.nyrkovalex.seed.logging.Logging;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.NullProgressMonitor;
 import org.eclipse.jgit.lib.TextProgressMonitor;
 
-import com.github.nyrkovalex.seed.logging.Logging;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 class GitCloneCommand implements Git.CloneCommand {
 

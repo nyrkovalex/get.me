@@ -1,12 +1,12 @@
 package com.github.nyrkovalex.get.me.param;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 import java.util.Optional;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertThat;
 
 public class RepoUrlTest {
 
