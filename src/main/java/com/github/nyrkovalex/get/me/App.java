@@ -24,7 +24,6 @@ final class App {
 	private static final Logger LOG = Logging.logger(App.class);
 	private static final String DESCRIPTOR_FILENAME = "get.me.json";
 
-
 	public static void main(String... args) throws Exception {
 		Params params;
 		try {
@@ -38,6 +37,7 @@ final class App {
 		App getMe = new App(params);
 		getMe.run();
 	}
+
 
 	private final Params params;
 	private final Git.Cloner cloner = Git.cloner();
@@ -76,11 +76,17 @@ final class App {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void runPlugin(GetMe.ExecutionContext context, Description builderDescription)
 			throws ReflectiveOperationException, GetMe.PluginException {
+		GetMe.Plugin plugin = loadPlugin(builderDescription);
 		LOG.info(() -> "Running " + builderDescription.className());
+		Optional builderParams = builderDescription.params(plugin.paramsClass());
+		plugin.exec(context, builderParams);
+	}
+
+	private GetMe.Plugin loadPlugin(Description builderDescription) throws ReflectiveOperationException {
+		LOG.fine(() -> String.format(
+				"Loading %s from %s", builderDescription.className(), GETME_ENVIRONMENT.pluginsHome()));
 		Plugins.Repo repo = LOADER.repo(GETME_ENVIRONMENT.pluginsHome());
-		GetMe.Plugin builder = repo.instanceOf(builderDescription.className(), GetMe.Plugin.class);
-		Optional builderParams = builderDescription.params(builder.paramsClass());
-		builder.exec(context, builderParams);
+		return repo.instanceOf(builderDescription.className(), GetMe.Plugin.class);
 	}
 
 	private static class PluginExecutionContext implements GetMe.ExecutionContext {

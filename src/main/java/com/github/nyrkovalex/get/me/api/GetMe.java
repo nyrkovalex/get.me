@@ -41,7 +41,7 @@ public final class GetMe {
 		private final String userHome;
 
 		private Environment() {
-			userHome = System.getenv("user.home");
+			userHome = System.getProperty("user.home");
 		}
 
 		public String pluginsHome() {

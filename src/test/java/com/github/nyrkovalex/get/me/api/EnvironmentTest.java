@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 public class EnvironmentTest {
 
-	private final static String USER_HOME = System.getenv("user.home");
+	private final static String USER_HOME = System.getProperty("user.home");
 	private GetMe.Environment environment;
 
 	@Before
