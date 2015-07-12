@@ -1,28 +1,27 @@
 package com.github.nyrkovalex.get.me.json;
 
-import java.util.Optional;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-class Description implements Jsons.Description {
+import java.util.Optional;
+
+public class Description {
 
 	private final String className;
 	private final JsonObject params;
-	private final static Gson GSON = new Gson();
+	private final Gson gson;
 
-	public Description(String className, JsonObject params) {
+	Description(String className, JsonObject params, Gson gson) {
 		this.className = className;
 		this.params = params;
+		this.gson = gson;
 	}
 
-	@Override
 	public String className() {
 		return className;
 	}
 
-	@Override
 	public <T> Optional<T> params(Optional<Class<T>> clazz) {
-		return clazz.map(c -> GSON.fromJson(params, c));
+		return clazz.map(c -> gson.fromJson(params, c));
 	}
 }

@@ -20,11 +20,11 @@ import com.google.gson.Gson;
 import com.gtihub.nyrkovalex.seed.nio.Fs;
 
 public class ParserTest {
-	
+
 	private static class MvnParams {
 		public final List<String> goals = Collections.emptyList();
 	}
-	
+
 	private static class JarParams {
 		public final String jar = null;
 	}
@@ -46,14 +46,14 @@ public class ParserTest {
 
 	@Mock Path file;
 	@Mock Fs fs;
-	List<Jsons.Description> parsed;
+	List<Description> parsed;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		when(fs.newBufferedReader(file)).thenReturn(new BufferedReader(new StringReader(JSON)));
 		Parser parser = new Parser(new Gson(), fs);
-		parsed = parser.parse(file);
+		parsed = parser.parseDescription(file);
 	}
 
 	@Test

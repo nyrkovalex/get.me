@@ -1,13 +1,12 @@
 package com.github.nyrkovalex.get.me.git;
 
+import com.github.nyrkovalex.seed.Sys;
+import org.eclipse.jgit.transport.CredentialItem;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
-import org.eclipse.jgit.transport.CredentialItem;
-
-import com.github.nyrkovalex.seed.Sys;
 
 class CredentialHandlers {
 
@@ -92,7 +91,7 @@ class CredentialHandlers {
 			String prompt = String.format("Please provide %s: ", credentialItem.getPromptText());
 			return credentialItem.isValueSecure()
 			       ? console.readSecure(prompt)
-			       : console.read(prompt);
+			       : console.readLine(prompt);
 		}
 	}
 }

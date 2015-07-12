@@ -1,14 +1,7 @@
 package com.github.nyrkovalex.get.me.git;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-
+import com.github.nyrkovalex.seed.Sys;
+import com.github.nyrkovalex.seed.logging.Logging;
 import org.eclipse.jgit.transport.CredentialItem;
 import org.eclipse.jgit.transport.URIish;
 import org.junit.Before;
@@ -20,8 +13,14 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.github.nyrkovalex.seed.Sys;
-import com.github.nyrkovalex.seed.logging.Logging;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
 public class GitTest {
@@ -84,7 +83,7 @@ public class GitTest {
 		@Before
 		public void setUp() throws Exception {
 			MockitoAnnotations.initMocks(this);
-			when(inputProvider.read(Matchers.anyString())).thenReturn("plain");
+			when(inputProvider.readLine(Matchers.anyString())).thenReturn("plain");
 			when(inputProvider.readSecure(Matchers.anyString())).thenReturn("secure");
 		}
 
@@ -108,14 +107,14 @@ public class GitTest {
 
 		@Test
 		public void testShouldProvideTrueInputForUppercaseYesNoCredRequest() throws Exception {
-			when(inputProvider.read(Matchers.anyString())).thenReturn("Y");
+			when(inputProvider.readLine(Matchers.anyString())).thenReturn("Y");
 			yesNoHandler.apply(yesNoRequest);
 			verify(yesNoRequest).setValue(true);
 		}
 
 		@Test
 		public void testShouldProvideTrueInputForLowercaseYesNoCredRequest() throws Exception {
-			when(inputProvider.read(Matchers.anyString())).thenReturn("y");
+			when(inputProvider.readLine(Matchers.anyString())).thenReturn("y");
 			yesNoHandler.apply(yesNoRequest);
 			verify(yesNoRequest).setValue(true);
 		}

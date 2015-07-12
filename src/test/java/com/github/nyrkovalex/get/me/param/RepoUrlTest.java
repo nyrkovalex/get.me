@@ -24,7 +24,7 @@ public class RepoUrlTest {
 		assertThat(read.getBranch(), is(Optional.of("branch-1")));
 	}
 
-	@Test(expected = Params.Err.class)
+	@Test(expected = WrongUsageException.class)
 	public void testShouldThrowOnIllegalInput() throws Exception {
 		RepoUrl.parse("https://github.com/me/repo::branch-1::branch-2");
 	}

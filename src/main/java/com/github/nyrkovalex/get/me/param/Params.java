@@ -1,47 +1,63 @@
 package com.github.nyrkovalex.get.me.param;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
-public final class Params {
+public class Params {
 
-	private Params() {
-		// Module
+	private final Set<RepoUrl> urls;
+	private final boolean debug;
+
+	private Params(boolean debug, Set<RepoUrl> urls) {
+		this.debug = debug;
+		this.urls = Collections.unmodifiableSet(urls);
 	}
 
-	public interface Parsed {
-
-		Set<RepoUrl> getUrls();
-		boolean isDebug();
+	public static Params from(String... args) throws WrongUsageException {
+		ParamCollector collector = new ParamCollector(args.length);
+		collector.offer(args);
+		return collector.collect();
 	}
 
-	public static Parsed parse(String[] args) throws Err {
-		return ParamsParsed.from(args);
+	public Set<RepoUrl> getUrls() {
+		return urls;
 	}
 
-	public static class Err extends Exception {
+	public boolean isDebug() {
+		return debug;
+	}
 
-		private static final String USAGE = ""
-				+ "Usage:\n"
-				+ "gitdep <url> [, url, ...] [ -debug ]\n"
-				+ "\n"
-				+ "Parameters:\n"
-				+ "url - Url of a dependency repository. Should be in a format understandable by git\n"
-				+ "\n"
-				+ "Flags:\n"
-				+ "-debug - Enable debug output\n";
+	private static final class ParamCollector {
 
-		Err() {
-			super();
+		private boolean debug;
+		private final Set<RepoUrl> urls;
+
+		private ParamCollector(int size) {
+			debug = false;
+			urls = new HashSet<>(size);
 		}
 
-		Err(String message) {
-			super(message);
+		void offer(String arg) throws WrongUsageException {
+			switch (arg) {
+			case "-debug":
+				debug = true;
+				return;
+			}
+			urls.add(RepoUrl.parse(arg));
 		}
 
-		@Override
-		public String getMessage() {
-			return USAGE;
+		void offer(String... args) throws WrongUsageException {
+			for (String arg : args) {
+				offer(arg);
+			}
+		}
+
+		private Params collect() throws WrongUsageException {
+			if (urls.isEmpty()) {
+				throw new WrongUsageException();
+			}
+			return new Params(debug, urls);
 		}
 	}
 }
-

@@ -19,14 +19,14 @@ public class RepoUrl {
 		this.branch = Optional.of(branch);
 	}
 
-	public static RepoUrl parse(String urlString) throws Params.Err {
+	static RepoUrl parse(String urlString) throws WrongUsageException {
 		String[] urlAndBranch = urlString.split(BRANCH_SEPARATOR);
 		if (urlAndBranch.length == 1) {
 			return new RepoUrl(urlString);
 		} else if (urlAndBranch.length == 2) {
 			return new RepoUrl(urlAndBranch[0], urlAndBranch[1]);
 		}
-		throw new Params.Err("Malformed url");
+		throw new WrongUsageException("Malformed url");
 	}
 
 	public String getUrl() {
